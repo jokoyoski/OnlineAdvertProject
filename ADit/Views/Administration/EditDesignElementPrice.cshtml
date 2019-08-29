@@ -1,0 +1,207 @@
+﻿@model ADit.Interfaces.IDesignElementPriceView
+@{
+    ViewBag.Title = "EditDesignElementPrice";
+}
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("EditDesignElementPrice", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="DesignElementPriceId" name="DesignElementPriceId" value="@Model.DesignElementPriceId" />
+
+
+        <div class="row">
+            <div class="col-md-5 col-12">
+                <span style="color:red;">*</span>Material Type:
+                <div class="data column" style="overflow: hidden;">
+                    @Html.DropDownList("DesignElementId", Model.DesignElementType, new { @class="form-control", style = "width:204px;", id = "DesignElementId" })
+                </div>
+
+
+            </div>
+
+            <div class="col-md-5 col-12">
+                <span style="color:red;">*</span>Service Code:
+                @Html.DropDownList("ServiceTypeCode", Model.ServiceType, new { @class="form-control", style = "width:204px;", id = "ServiceTypeCode" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-5 col-12">
+                <span style="color:red;">*</span>Enter the amount:
+                <input id="Amount" name="Amount" class="form-control" type="text" maxlength="100" value="@Model.Amount" />
+            </div>
+
+            <div class="col-md-5 col-12">
+                <span style="color:red;">*</span>Enter the comment:
+                <input id="Comment" name="Comment" class="form-control" type="text" maxlength="100" value="@Model.Comment" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 col-12">
+                <div class="label column">
+                    <span style="color:red;">*</span>EffectiveDate:
+                </div>
+                <input id="EffectiveDate" name="EffectiveDate" class="form-control" type="date" maxlength="100" value="@Model.EffectiveDate" />
+            </div>
+
+            
+        </div>
+
+        <p></p>
+
+        <div class="form-group row pl-3">
+            <input class="grayButton btn btn-primary" id="btnSubmit" name="submitButton"  disabled type="submit" value="Submit" />
+            <div class="pl-3">
+                <input id="btnCancel" class="enabledButton btn btn-danger" name="submitButton" type="submit" value="Cancel" />
+            </div>
+            <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+                You must enter all information above correctly to enable submission.
+            </div>
+        </div>
+        @*<div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Design Element Type:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    @Html.DropDownList("DesignElementId", Model.DesignElementType, new {style = "width:204px;height:20px;", id = "DesignElementTypeId"})
+                </div>
+            </div>
+
+
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Service Type:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    @Html.DropDownList("ServiceTypeCode", Model.ServiceType, new { style = "width:204px;height:20px;", id = "ServiceTypeCode" })
+                </div>
+            </div>
+
+
+
+
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Amount:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="Amount" name="Amount" style="width: 250px;" type="text" maxlength="50" value="@Model.Amount.ToString("#")"/>
+                </div>
+            </div>
+
+
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Comment:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="Comment" name="Comment" style="width: 250px;" type="text" maxlength="50" value="@Model.Comment"/>
+                </div>
+            </div>
+
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Effective Date:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="EffectiveDate" name="EffectiveDate" style="width: 250px;" type="text" maxlength="50" value="@Model.EffectiveDate.ToString("d")"/>
+                </div>
+            </div>
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Date InActive:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="DateInactive" name="DateInactive" style="width: 250px;" type="text" maxlength="50" value="@DisplayHelper.DisplayDate(Model.DateInactive)" />
+                </div>
+            </div>
+
+
+            <div class="columns" style="width: 100%; padding-top: 15px; padding-bottom: 5px;">
+                <div class="column" style="margin-left: 195px;">
+                    <input class="enabledButton" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Submit"/>
+                </div>
+                <div class="column" style="margin-left: 15px;">
+                    <input id="btnCancel" class="enabledButton" name="submitButton" style="width: 80px;"
+                           type="submit" value="Cancel"/>
+                </div>
+                <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+                    You must enter all information above correctly to enable submission.
+                </div>
+            </div>*@
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        
+        $("#ServiceTypeCode").change(function () {
+           
+            $("#Amount").trigger('propertychange');
+
+        });
+
+        $("#DesignElementId").change(function() {
+            $("#Amount").trigger('propertychange');
+
+        });
+
+        $("#EffectiveDate").change(function () {
+
+            $("#Amount").trigger('propertychange');
+        });
+        
+
+        $("#Comment").change(function() {
+
+            $("#Amount").trigger('propertychange');
+        });
+
+
+
+        $('#Amount').bind('input propertychange',
+            function() {
+
+                $('#btnSubmit').prop("class", "grayButton");
+                $('#btnSubmit').prop("disabled", true);
+
+    
+               // var dateInActive = $("#DateInactive").val().length > 0;
+                var comment = $("#Comment").val().length > 0;
+                //var amount = $("#Amount").val().length > 0 && $("#Amount").val() > 0;
+                var designlement = ($("#DesignElementId").val() != -1);
+                var serviceType = ($("#ServiceTypeCode").val() != "");
+
+              var effectiveDate = $("#EffectiveDate").val().length > 0;
+
+                if (( comment && designlement && serviceType && effectiveDate
+                    ) 
+                ) {
+                    $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                    $('#btnSubmit').prop("disabled", false);
+                }
+            });
+
+    });
+    $('#btnCancel').click(function() {
+
+        window.location.href = '/Administration/DesignElementPrice';
+        return false;
+
+
+    });
+
+
+</script>

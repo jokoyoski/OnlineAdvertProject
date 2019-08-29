@@ -1,0 +1,361 @@
+﻿@model ADit.Interfaces.IMessageRepliesListView
+@using ADit.Interfaces.ValueTypes
+
+@{
+    ViewBag.Title = "MessageList";
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Inbox | Notika - Notika Admin Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/normalize.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- Notika icon CSS
+        ============================================ -->
+    @*<link rel="stylesheet" href="~/Content/css/notika-custom-icon.css">*@
+    <!-- wave CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/wave/waves.min.css">
+    <link rel="stylesheet" href="~/Content/css/wave/button.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/main.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+@{
+    List<bool> Repliesint = new List<bool>();
+
+
+    var ifMessageExist = Model.InitialMessage != null;
+    var ifRepliesExist = Model.Replies.Count() > 0;
+    var repliescount = Model.Replies.Count;
+
+    bool RepliesApproved()
+    {
+
+        foreach (var j in Model.Replies)
+        {
+
+            Repliesint.Add(j.IsApproved);
+        }
+
+        if (Repliesint.Contains(true))
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+
+}
+<br />
+
+<div class="inbox-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="inbox-left-sd">
+                    <div class="compose-ml">
+                        <a class="btn" href="/Home/Contact">Contact Us</a>
+                    </div>
+                    <div class="inbox-status">
+                        <ul class="inbox-st-nav inbox-ft">
+                            <li class="hove"><a class="" href="/Message/Inbox"><i class="forceicolor fa fa-envelope-o"></i> Inbox<span class="pull-right">@HttpContext.Current.Session[SessionKey.MessageNumber]</span></a></li>
+                            <li class="hove"><a class="forceicolora" href="#"><i class="forceicolor fa fa-send-o"></i> Sent</a></li>
+                            <li class="hove"><a class="forceicolora" href="#"><i class="forceicolor fa fa-reply"></i> Replies</a></li>
+                            <li class="hove"><a class="forceicolora" href="#"><i class="forceicolor fa fa-file-o"></i> Draft</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="inbox-status">
+                        <ul class="inbox-st-nav inbox-nav-mg">
+                            <li><a href="/Fulfilment/RadioTransactions"><i class="forceicolor  fa fa-file-audio-o"></i> Radio</a></li>
+                            <li><a href="/Fulfilment/TvTransaction"><i class="forceicolor fa fa-tv"></i> TV</a></li>
+                            <li><a href="/Fulfilment/OnlineTransactions"><i class="forceicolor fa fa-wikipedia-w"></i> Online</a></li>
+                            <li><a href="/Fulfilment/BrandingTransactions"><i class="forceicolor  fa fa-cogs"></i> Branding</a></li>
+                            <li><a href="/Fulfilment/PrintTransaction" class="parthover"><i class="forceicolor fa fa-newspaper-o"></i> Print</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="view-mail-list sm-res-mg-t-30">
+                    <div class="view-mail-atn">
+                        <div class="view-ma">
+                            <div class="mail-ads mail-vw-ph">
+                                <span class="message-text">   @Model.Subject</span>
+                                <p>
+
+                                    <h6 class="offset-9">@Model.TimeAgo(Model.InitialDate)</h6>
+
+                                <p>@Model.InitialMessage</p>
+                            </div>
+                        </div>
+
+                        <div class="">
+
+
+
+
+                            <span class="vw-tr">
+                                @{
+
+                                    var Reply = RepliesApproved();
+
+                                    if (Model.IsApproved == true || Reply == true)
+                                    {
+                                        <i class="fa fa-check-circle"></i><span style="color:green">Approved</span>
+
+
+                                    }
+                                   
+
+                                }
+                            </span>
+
+                        </div>
+
+                        <div class="file-download-system">
+                            <div class="dw-st-ic mg-t-20">
+                                @{
+                                    if (Model.IsApproved || Reply == false && Model.DigitalFileId > 0)
+                                    {
+                                        
+
+                                 
+                                <div class="form-inline">
+
+                                    <div class="">
+                                        <a href="/Message/ApproveMessageById?MessageId=@Model.MessageId&SentToId=@Model.SentToId&transactionId=@Model.transactionId&OrderId=@Model.OrderId" class="btn btn-sm btnColor  message-anchor"><span style="color:white">Approve</span></a>
+
+                                    </div>
+                                    <div class="pl-2">
+                                        <a href="/Fulfilment/FileResult?FileId=@Model.DigitalFileId" class="btn btn-sm btnColor"><span style="color:white;">Download</span></a>
+
+                                    </div>
+                                   
+                                </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="dw-atc-sn">
+                                            <span><i class="fa fa-paperclip"></i>  no attachment</span>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        @{
+                            if (ifRepliesExist)
+                            {
+
+                            }
+                            else
+                            {
+                                <div class="vw-ml-action-ls text-right mg-t-20">
+                                    <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+
+                                        @if (Model.IsApproved == true || Reply == true)
+                                        {
+                                            <button class="btn btn-orange btn-sm waves-effect" disabled data-toggle="modal" data-target="#createModal"><i class="fa fa-reply"></i> Reply</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-orange btn-sm waves-effect" data-toggle="modal" data-target="#createModal"><i class="fa fa-reply"></i> Reply</button>
+                                        }
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    
+
+                  <br/>
+
+                    @if (ifRepliesExist)
+                    {
+                        
+                        foreach (var j in Model.Replies)
+                        {
+                        <div class="view-mail-atn">
+                            <div class="row">
+                               
+                                        <h6>from:  @j.UserName</h6>
+                                    
+
+                                
+                                 
+                                    <h6 class="offset-7">@Model.TimeAgo(j.dateCreated)</h6> 
+                                 
+
+                            </div>
+                            
+
+                            <p>@j.Message</p>
+
+                            @if (Model.IsApproved == true || Reply == true)
+                            {
+                                {
+
+                                    <i class="fa fa-check-circle"></i><span style="color:green">Approved</span>
+                                    if (j.DigitalFileId > 0)
+                                    {
+                                        <br />
+                                        <div>
+                                            <a href="/Fulfilment/FileResult?FileId=@j.DigitalFileId" class="btn btn-sm btn-hover btn-danger"><span class="fa fa-download" style="padding-right:3px;"></span>Download</a>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                               
+                            }
+                            else
+                            {
+
+                                if (j.DigitalFileId > 0)
+                                {
+                                    <br />
+
+
+                                    <a href="/Message/ApproveRepliesById?RepliesId=@j.ReplyId&MessageId=@Model.MessageId&SentToId=@Model.SentToId&transactionId=@Model.transactionId&OrderId=@Model.OrderId" class="btn btn-sm btnColor"><span style="color:white">Approve</span></a>
+
+
+                                    <a href="/Fulfilment/FileResult?FileId=@j.DigitalFileId" class="btn btn-sm btnColor"><span class="" style="padding-right:3px;"></span> <span style="color:white">Download</span></a>
+
+
+
+                                }
+                                else
+                                {
+
+                                }
+                                
+                            }
+
+
+
+
+
+                        </div>
+
+                            <br />
+                        }
+                    }
+
+
+                    @{
+                        if (ifRepliesExist)
+                        {
+                            <div class="vw-ml-action-ls text-right mg-t-20">
+                                <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+
+                                    @if (Model.IsApproved == true || Reply == true)
+                                    {
+                                        <button class="btn btn-default btn-sm waves-effect" disabled data-toggle="modal" data-target="#createModal"><i class="fa fa-reply"></i> Reply</button>
+
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-default btn-sm waves-effect" data-toggle="modal" data-target="#createModal"><i class="fa fa-reply"></i> Reply</button>
+
+                                    }
+
+                                </div>
+                               
+                            </div>
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-header text-center">
+            <h5 style="color:white"><i class="fa fa-reply"></i> Reply</h5>
+        </div>
+        <div class="modal-content">
+            <div id="displayCreate">
+                <div class="container-fluid">
+                    @using (Html.BeginForm("SaveUserReplies", "Message", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <input type="text" hidden name="ServiceCode" class="form-control" value="@Model.ServiceCode" />
+                        <input type="text" hidden name="MessageId" class="form-control" value="@Model.MessageId" />
+                        <input type="text" hidden name="SentToId" class="form-control" value="@Model.SentToId" />
+                        <input type="text" hidden name="transactionId" class="form-control" value="@Model.transactionId" />
+                        <input type="text" hidden name="OrderId" class="form-control" value="@Model.OrderId" />
+
+                        <div class=" form-group">
+                            <label class="control-label">
+                                Upload :
+                            </label>
+                            <div class="data" style="overflow: hidden;">
+                                <input type="file" id="scriptMaterial" name="scriptMaterial" class="form-control"
+                                       accept=".txt,.doc,.jpg ,.docx,.pdf" title="Upload your Script" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label">
+                                Script Notes
+                            </label>
+                            <textarea value="@Model.Messages" name="Messages" class="form-control" cols="50">
+
+                                </textarea>
+                        </div>
+
+
+
+                        <div class="column" style="margin-left: 15px;">
+                            <input id="btnCancel" class="btn btn-outline-dark enabledButton form-control" name="submitButton"
+                                   type="submit" value="Submit" />
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿
+    @*@Html.MvcSiteMap().Menu("MenuHelperModel", false, true, true)*@
+
+@using ADit.Interfaces.ValueTypes
+
+@{
+    bool isAuthenticated = ViewContext.HttpContext.User.Identity.IsAuthenticated;
+}
+
+
+
+@if (isAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="nav float-right mt-2">
+            <div class="flro0">
+                <ul class="nav float-right">
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="/Order/SummaryRedirect">
+                            <span class="fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shopping-cart fa-stack-1x fa-inverse" title="Your Cart"></i>
+                                <span class="badge badge-danger">@HttpContext.Current.Session[SessionKey.CartNumber]</span>
+                            </span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="/Fulfilment/PendingFulfilmentPayment">
+                            <span class="fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse" title="Notification"></i>
+                                <span class="badge badge-danger">@HttpContext.Current.Session[SessionKey.PendingFulfilmentNumber]</span>
+                            </span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Order/ViewOrder">
+                            <span class="fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-address-book fa-stack-1x fa-inverse" title="Orders"></i>
+                                <span class="badge badge-danger"></span>
+                            </span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="logintxt nav-link">Log off</a>
+                    </li>
+
+                </ul>
+
+            </div>
+            @*<ul class="nav  mt-3">
+
+
+                @Html.MvcSiteMap().Menu("MenuHelperModel", false, true, true)*@
+
+
+                @*<li class="nav-item">
+                        @Html.ActionLink("Hello " + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                    </li>*@
+
+
+            @*</ul>*@
+        </div>
+
+
+
+    }
+}
+else
+{
+
+
+
+
+
+
+    <ul class="nav float-right mt-3">
+
+
+        @*@Html.MvcSiteMap().Menu("MenuHelperModel", false, true, true)*@
+
+
+
+        <li class="nav-item">
+            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })
+        </li>
+
+        <li class="nav-item">
+            @Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link logintxt" })
+        </li>
+    </ul>
+}

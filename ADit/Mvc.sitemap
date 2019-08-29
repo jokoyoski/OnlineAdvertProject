@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Defined roles that drives menu that will show up for user
+ Administration
+ AppConfig
+ User
+ FulfilmentViewOnly,Administration,FulfilmentAdmin,Scripting,Production,Scheduling, Transmission, Closure
+ -->
+
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+
+    <mvcSiteMapNode title="Services" controller="Service" action="Index" roles="Administration,User"
+                   visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain">
+      <mvcSiteMapNode title="Branding "  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,User" controller="Branding" action="Index"/>
+      <mvcSiteMapNode title="Print Media"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,User" controller="Print" action="Index"/>
+      <mvcSiteMapNode title="Radio"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,User" controller="Radio" action="Radio"/>
+      <mvcSiteMapNode title="Tv"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,User" controller="Tv" action="Index"/>
+      <mvcSiteMapNode title="Online"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,User" controller="Online" action="Index"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Fulfilment" controller="Fulfilment" action="Index"  roles="FulfilmentViewOnly,Administration,FulfilmentAdmin,Scripting,Production,Scheduling, Transmission, Closure"
+                   visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain">
+      <mvcSiteMapNode title="Pick Order"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,FulfilmentAdmin,Scripting" controller="Fulfilment" action="Pick" />
+      <mvcSiteMapNode title="Scripting"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,FulfilmentAdmin,Scripting" controller="Scripting" action="Index" />
+      <mvcSiteMapNode title="Production"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,FulfilmentAdmin,Production" controller="Production" action="Index"/>
+      <mvcSiteMapNode title="Scheduling"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,FulfilmentAdmin,Scheduling" controller="Scheduling" action="Index" />
+      <mvcSiteMapNode title="Trasmission"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,FulfilmentAdmin,Transmission" controller="Fulfilment" action="Transmission" />
+      <mvcSiteMapNode title="Closure"  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain" roles="Administration,FulfilmentAdmin,Closure" controller="Fulfilment" action="Closure" status="CL"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Configuration" controller="Config" action="Index"  roles="AppConfig"
+                    visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain">
+      <mvcSiteMapNode title="Manage Administrator" controller="Administration" action="Administrators" roles="AppConfig"
+                    visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain"/>
+      <mvcSiteMapNode title="Encryption" controller="Config" action="Encrypt" roles="AppConfig"
+                      visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain"/>
+      <mvcSiteMapNode title="Decryption" controller="Config" action="Decrypt" roles="AppConfig"
+                      visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Administration" controller="Administration" action="Index" roles="Administration"
+                   visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain">
+      <mvcSiteMapNode title="Manage Users" controller="Administration"  action="User" roles=""
+                   visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain"/>
+
+      <mvcSiteMapNode title="View Activity Log" controller="Administration" action="ActivityLog" roles=""
+                    visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain"/>
+
+      <mvcSiteMapNode title="View Email Log" controller="Administration" action="EmailLog" roles=""
+                  visibilityProvider="ADit.Domain.Providers.SiteMapNodeVisibilityProvider, ADit.Domain"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Our Story" controller="Home" action="OurStory"/>
+    <mvcSiteMapNode title="How it works" controller="Home" action="HowToUse"/>
+    <mvcSiteMapNode title="Contact" controller="Home" action="Contact"/>
+  </mvcSiteMapNode>
+
+
+</mvcSiteMap>

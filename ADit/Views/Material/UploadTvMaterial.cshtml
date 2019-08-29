@@ -1,0 +1,42 @@
+﻿@model ADit.Interfaces.ITvTransactionMaterialListView
+
+@{
+    ViewBag.Title = "UploadTvMaterial";
+}
+
+<div class="jumbotron">
+    @using (Html.BeginForm("UploadTvMaterial", "Material", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="text" name="transactionId" hidden value="@Model.transactionId" />
+        <input type="text" hidden name="userId" value="@Model.userId" />
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                Upload :
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="file" id="scriptMaterial" name="scriptMaterial" style="width: 250px;"
+                       accept=".txt,.doc,.jpg ,.docx,.pdf" title="Upload your Script" />
+            </div>
+        </div>
+
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                Script Notes
+            </div>
+            <textarea value="@Model.MaterialDetails" name="MaterialDetails" rows="4" cols="50">
+
+          </textarea>
+        </div>
+
+
+
+        <div class="column" style="margin-left: 15px;">
+            <input id="btnCancel" class="enabledButton" name="submitButton" style="width: 80px;"
+                   type="submit" value="Submit" />
+        </div>
+    }
+</div>

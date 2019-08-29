@@ -1,0 +1,146 @@
+﻿@model ADit.Interfaces.IOnlineArtworkPriceView
+
+@{
+    ViewBag.Title = "Save Online ArtWork Price";
+}
+
+
+@section PageTitle{
+    Add Online ArtWork Price
+}
+<div class="jumbotron container">
+    <div class="form-group" style="font-size: 12px;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("CreateOnlineArtWorkPrice", "Online", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="DateCreated" name="DateCreated" value="@Model.DateCreated" />
+        <input type="hidden" id="DesignElementlId" name="BrandingMaterialPriceId" value="@Model.ArtWorkPriceId" />
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Material Type:
+
+                @Html.DropDownList("ServiceTypeCode", Model.ServiceType, new { @class = "form-control", style = "width:204px;", id = "ServiceTypeCode" })
+            </div>
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Enter the amount:
+                <input class="form-control" id="Amount" name="Amount" style="width: 204px;" type="text" maxlength="100" value="@Model.Amount" />
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Comment :
+                <input class="form-control" id="Comment" name="Comment" style="width: 204px;" type="text" maxlength="100" value="@Model.Comment" />
+            </div>
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Date Effective :
+                <input class="form-control" id="EffectiveDate" name="EffectiveDate" style="width: 204px;" type="date" maxlength="100" value="@Model.EffectiveDate" />
+            </div>
+        </div>
+
+        <div class="col-12  pt-3">
+
+            <div class="pl-3 row">
+                <div class="row">
+                    <div>
+
+                       <input type="submit" value="submit" class="btn btn-primary"/>
+
+                    </div>
+
+                    <div class="pl-4">
+                        <a href="/Online/OnlineArtWorkPrice" class="btn btn-danger" id="btnCancel" name="submitButton" style="width: 80px;color:white">Cancel</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                You must enter all information above correctly to enable submission.
+            </div>
+
+        </div>
+
+    }
+</div>
+
+
+
+
+
+
+
+@*@section JavaScriptsExecution
+    {
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('#btnCancel').click(function () {
+                        alert("Precious");
+
+                        window.location.href = '/Administration/DesignElement';
+                        return false;
+
+                    });
+
+                    $("#BrandingMaterialId").change(function () {
+                        $("#Amount").trigger('propertychange');
+
+                    });
+
+
+
+                    $("#Comment").change(function () {
+
+                        $("#Amount").trigger('propertychange');
+                    });
+
+
+                    $("#EffectiveDate").change(function () {
+
+                        $("#Amount").trigger('propertychange');
+                    });
+
+
+                    $('#Amount').bind('input propertychange',
+                        function () {
+
+                            $('#btnSubmit').prop("class", "grayButton");
+                            //   $('#btnSubmit').prop("disabled", true);
+
+
+                            var effectiveDate = $("#EffectiveDate").val().length > 0;
+                            var dateInActive = $("#DateInactive").val().length > 0;
+                            var comment = $("#Comment").val().length > 0;
+                            var amount = $("#Amount").val().length > 0 && $("#Amount").val() > 0;
+                            var branding = ($("#BrandingMaterialId").val() != -1);
+
+                            if ((comment && amount && branding && effectiveDate
+                            ) /*&& (comment )&& (amount)*/ /*&&(comment) && (amount)*/
+                            ) {
+                                $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                                $('#btnSubmit').prop("disabled", false);
+                            }
+                        });
+
+                });
+            </script>
+
+        }
+
+
+        @section Stylesheets{
+            <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
+        }*@

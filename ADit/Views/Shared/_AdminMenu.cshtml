@@ -1,0 +1,53 @@
+﻿
+@if (!Request.IsAuthenticated)
+{
+
+
+    <li class="dropdown" data-admin-menu>
+
+
+        <a href="#">
+            Admin
+            <span class="glyphicon glyphicon-chevron-down"></span>     @* note that you cannot write anything inisde span*@
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header"> Minor Entites</li>   @*this is a label*@
+            <li class="divider" />   @*horizontal line*@
+            <li> <a href="/Sections/Index"> &nbsp; &nbsp; Section</a></li>
+            <li> <a href="/Part/Index"> &nbsp; &nbsp; Part</a></li>
+
+            <li> <a href="/ItemType/index"> &nbsp; &nbsp; Item Type</a></li>
+            <li> <a href="/ProductType/index"> &nbsp; &nbsp; Product Type</a></li>
+            <li> <a href="/ProductItem/index"> &nbsp; &nbsp; Product Item</a></li>
+            <li> <a href="/ProductLinkText/index"> &nbsp; &nbsp; Product Link Text</a></li>
+            <li class="divider" />
+            <li class="dropdown-header"> Minor Entites</li>
+            <li> <a href="/Item/index"> &nbsp; &nbsp; Product Item</a></li>
+            <li> <a href="/Product/index"> &nbsp; &nbsp; Product</a></li>
+            <li> <a href="/Subscription/index"> &nbsp; &nbsp; Subscription</a></li>
+            <li class="divider" />
+            <li class="dropdown-header"> Connector Entites</li>
+            <li> <a href="/Admin/ProductItem"> &nbsp; &nbsp; Product Item</a></li>
+            <li> <a href="/SubscriptionProduct/index"> &nbsp; &nbsp; Subscriptions</a></li>
+            <li class="divider" />
+            <li class="dropdown-header"> Users and Subccriptions</li>
+            <li class="divider" />
+            <li> <a href="/Account"> &nbsp; &nbsp;  Users and Subscriptions</a></li>
+            <li> <a href="User/Index"> &nbsp; &nbsp;  Users and Subscriptions</a></li>
+        </ul>
+
+    </li>
+
+    @*this is what helps us with the dropdowns, it originates from AdminMenu.js*@
+
+
+
+}
+
+
+
+
+
+
+
+

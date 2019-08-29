@@ -1,0 +1,255 @@
+﻿@*<div class="homeTitle">Welcome to ADit Web Advert Services!</div>*@
+
+@*    <div>*@
+@*        <img src="~/Content/Images/AditLaptop1.jpg"  style="width:1150px;height:500px;"/>*@
+@*    </div>*@
+
+
+
+@if (!Request.IsAuthenticated)
+
+{
+    <main class="container-fluid m-0 p-0">
+        <section class="mybackground clearfix container-fluid">
+            <div class="row col-md-12">
+
+                <div class="col-md-6 text-center mt-md-5">
+                    <div class="txtlogin mt-md-5">
+                        <div class="pt-md-5 pt-3">
+                            <h1>
+                                <b>YOUR VIRTUAL <br />AD AGENCY</b>
+                            </h1>
+                            <h5>
+                                <b>Let's help you reach your audience.</b>
+                            </h5>
+                            <p>Cost-effective advertising solutions that often turn small <br />businesses into big business
+                            <p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-md-5 col-xs-6" style="padding-left: 200px; padding-right: 100px">
+                    <div class="login-form-container col-xs-6" style="vertical-align: middle;" id="login-form">
+                        <div class="login-form-content col-xs-6">
+                            <div class="login-form-header col-xs-6">
+                                <h3>
+                                    <b>Log In</b>
+                                </h3>
+                            </div>
+
+                            <div class="login-form mt-5 col-xs-6">
+
+                                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new
+                                {
+                                    id = "loginForm"
+                                }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="input-container">
+                                        <input type="text" class="input" name="email" placeholder="Email" />
+                                    </div>
+                                    <div class="input-container mt-4">
+                                        <input type="password" id="login-password" class="input" name="password" placeholder="Password" />
+                                    </div>
+                                    <input type="submit" name="login" value="S I G N  I N" class="button1 mt-5" />
+                                    <div class="mt-4">
+                                        <p class="pink_link text-center">
+                                            New User?
+                                            <b>
+                                                <span style="color: #ff6666;">
+                                                    <a href="/Account/Register">Create Account</a>
+                                                </span>
+                                            </b>
+                                        </p>
+                                        <p class="pink_link text-center">
+                                            <a href="/Account/ForgetPassword">Forgot Password ?</a>
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="clearfix container-fluid">
+            <div class="row col-md-12">
+                <div class="col-md-6 mvleft">
+                    @*<img src="images/Capture.png" width="540px" height="570px" />*@
+                    <img src="~/Content/Images/Capture.png" width="540px" height="570px" />
+                </div>
+                <div class="mytop txtcenter">
+                    <h2 style="color: #ff6666;">
+                        <b>How it Works</b>
+                    </h2>
+                    <h6 style="color: #ff6600;">It's easy to work with us</h6>
+                    <p></p>
+                    <p style="font-size: 12px;">
+                        We have created a user-friendly interface that not just <br /> lets you choose
+                        or discuss what you want but also <br />allows you maintain, change and track your project <br />
+                        from start to finish. We respond to your needs with <br /> quick revert time, making sure there are no feedback <br />loops. Log in to get
+                        started.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="mypicx clearfix container-fluid">
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="txtcenter mytop">
+                        <h2 style="color: #ff6666;">
+                            <b>Who We Are</b>
+                        </h2>
+                        <h6 style="color: #ff6600;">A look at what makes us who we are</h6>
+                        <p style="font-size: 12px;">
+                            We are full service creative agency with a primary <br />
+                            focus on helping individuals and organizations<br />meet their advertising needs.
+                        </p>
+                        @*<input type="submit" name="login" value="R E A D  M O R E" class="mybutton mt-2" />*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mvright">
+                        <img src="~/Content/Images/manlikefash.png" class="img-fluid" width="350px" height="320px" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="clearfix container-fluid">
+            <div class="txtcenter mt-4">
+                <h2 style="color: #ff6666;">
+                    <b>What we Offer</b>
+                </h2>
+                <h6 style="color: #ff6600;">We are always ready to help</h6>
+                <p style="font-size: 12px;">
+                    We are a 21st century Integrated Marketing Company ready to deliver all your <br />
+                    market needs. Some of our services include Logo design, Brand and Corporate <br /> Identity Development, Digital Marketing and many more.
+                </p>
+                @*<input type="submit" name="login" value="R E A D  M O R E" class="mybutton2 mt-2" />*@
+            </div>
+        </section>
+    </main>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+
+    @section Stylesheets{
+        <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
+
+    }}
+else
+{
+    ViewBag.Title = "ADit - Services";
+    
+    <div style="background-image:url(../../Content/Images/image-1.png);  height: 750px; background-repeat:no-repeat">
+
+        <div class="container pt-4">
+            <!-- Jumbotron Header -->
+            @*<header class="jumbotron">
+                    <h5 style="font-size:3.5rem;
+                        font-weight: 300;
+                        line-height: 1.2;">
+                        A Warm Welcome
+                    </h5>
+                    <p class="lead">
+                        Here at ADit we offer a lot of Advertising Services, you choose we move. You can rely on us to take your brand advert
+                        Global. Yes, we are capable of that and much more! We take Pride in your Brand.
+                    </p>
+                    <a href="#" class="btn btn-danger btn-lg">Learn More!</a>
+                </header>*@
+
+            <!-- Page Features -->
+            <div class="row text-center">
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="~/Content/Images/israel-palacio-459693-unsplash.jpg" alt="">
+                        @*<div class="card-body">*@
+                        <h4 class="pt-2 card-title">Radio Advert</h4>
+                        <div class="mx-auto">
+                            <a href="Radio/Radio" class="btn btn-danger  btn-sm">Buy Radio Advert!</a>
+                        </div>
+
+                        @*</div>*@
+
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="~/Content/Images/tv-627876_960_720.jpg" alt="">
+                        @*<div class="card-body">
+                                <h4 class="card-title">Tv Advert</h4>
+                                <a href="Tv/Index" class="btn btn-danger">Buy Tv Advert!</a>
+                            </div>*@
+                        @*<div class="card-body">*@
+                        <h4 class="pt-2 card-title">Tv Advert</h4>
+                        <div class="mx-auto">
+                            <a href="Tv/Index" class="btn btn-danger">Buy Tv Advert!</a>
+                        </div>
+
+                        @*</div>*@
+
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="~/Content/Images/burst-521042-unsplash.jpg" alt="">
+
+
+                        <h4 class="pt-2 card-title">Online Advert</h4>
+                        <div class="mx-auto">
+                            <a href="Online/Index" class="btn btn-danger">Buy Online Advert!</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="~/Content/Images/rawpixel-455997-unsplash.jpg" alt="">
+                        @*<div class="card-body">
+                                <h4 class="card-title">Branding Advert</h4>
+                                <a href="Branding/Index" class="btn btn-danger">Buy Branding Advert!</a>
+                            </div>*@
+                        <h4 class="pt-2 card-title">Branding Advert</h4>
+                        <div class="mx-auto">
+                            <a href="Branding/Index" class="btn btn-danger">Buy Branding Advert!</a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <center class="pt-0">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="~/Content/Images/newspaperad.jpg" alt="">
+                        @*<div class="card-body">
+                                <h4 class="card-title">Print-Media Advert</h4>
+                            </div>
+                            <div class="card-footer">
+                                <a href="Print/Index" class="btn btn-danger">Buy Print Media Price!</a>
+                            </div>*@
+                        <h4 class="pt-2 card-title">PrintMedia Advert</h4>
+                        <div class="mx-auto">
+                            <a href="Print/Index" class="btn btn-danger">Buy Print Media Advert!</a>
+                        </div>
+                    </div>
+                </div>
+            </center>
+
+            <!-- /.row -->
+
+        </div>
+    </div>
+}

@@ -1,0 +1,251 @@
+﻿@model ADit.Interfaces.ITvView
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="receipt-main col-xs-10 col-sm-10 col-md-12 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="receipt-header">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="receipt-header receipt-header-mid col-12">
+                    <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                        <div class="receipt-right">
+
+
+
+                            <h5><b>Mobile :</b> @Model.PhoneNumber</h5>
+
+                            <h5> <b>Email :</b> @Model.email</h5>
+
+
+                            <h5><b>Date :</b>@Model.DateCreated</b></h5>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-12 ">
+                        <div class=" row ml-0 mt-2">
+                            <h6 class=""><b>Order Title:</b></h6>
+                            <h6> @Model.OrderTitle</h6>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr>
+
+                                <th>Options</th>
+                                <th>Selections</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-md-9">Do you Have Script</td>
+                                @{
+                                    if (Model.ScriptingDigitalFileId == 0)
+                                    {
+                                        <td class="col-md-7 alert alert-warning">No Script Uploaded</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-md-7 alert alert-success">Script Uploaded</td>
+                                    }
+
+
+
+                                }
+
+                            </tr>
+                            <tr>
+                                <td class="col-md-9">Do you Have Material</td>
+                                @{
+                                    if (Model.ProductionDigitalFileId == 0)
+                                    {
+                                        <td class="col-md-7 alert alert-warning">No Material Uploaded</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-md-7 alert alert-success">Material Uploaded</td>
+                                    }
+
+
+
+                                }
+
+                            </tr>
+                            <tr>
+                                <td class="col-md-9">Do you have Apcon Approval</td>
+                                @{
+                                    if (Model.IsHaveApconApproval == true)
+                                    {
+                                        <td class="alert alert-success col-md-3"> @Model.ApconApprovalNumber </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="alert alert-danger col-md-3"> No Apcon Approval  </td>
+                                    }
+                                }
+
+                            </tr>
+
+
+
+                            <tr>
+                                <td class="col-md-9">Apcon Type</td>
+                                @{
+                                    if (Model.ApconType != null)
+                                    {
+                                        <td class="alert alert-light col-md-3"> @Model.ApconType</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="alert alert-danger col-md-3">  No Apcon Type Selected </td>
+                                    }
+                                }
+
+                            </tr>
+
+                            @{ if (Model.ApconType != null)
+                                {
+
+                                    <tr>
+
+
+                                        <td class="col-md-9">Apcon Type Amount</td>
+                                        <td class="alert alert-light col-md-3"> @Model.ApconApprovalAmount.ToString("#,0.0")</td>
+
+
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td class="col-md-9">Material Type</td>
+
+                                <td>
+                                    @Html.DropDownList("MaterialTypeId", Model.MaterialList, new { @class = "form-control", })
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td class="col-md-9">Material Scripting Price</td>
+                                <td class="col-md-3">@Model.ScriptingAmount.ToString("#,0")</td>
+                            </tr>
+
+                            <tr>
+                                <td class="col-md-9">Material Production Price</td>
+                                <td class="col-md-3">@Model.ProductionAmount.ToString("#,0")</td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-9">Additional Information</td>
+                                <td class="col-md-3">@Model.AiringInstruction</td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                @{
+                    if (Model.TvStationNameList != null)
+                    {
+                        <table class="table table-bordered table-responsive">
+                            <thead class="text-nowrap">
+                                <tr>
+                                    <th class="">Radio Station</th>
+                                    <th class="">TimeBelt</th>
+                                    <th class="">Slots</th>
+                                    <th class="">Total Slots</th>
+                                    <th class="">Prices Per Slot</th>
+                                    <th class="">Start Date</th>
+                                    <th class="">End Date</th>
+                                    <th class="">Days</th>
+                                    <th class="">Timing</th>
+                                    <th class="">Total</th>
+                                </tr>
+                            </thead>
+
+
+
+                            <tbody>
+
+
+
+                                @{
+
+                                    foreach (var j in Model.TvStationNameList)
+                                    {
+                                        var radioStationIndex = Model.TvStationNameList.IndexOf(j);
+                                        var timeBeltName = Model.TimeBeltNamesList[radioStationIndex];
+                                        var Slots = Model.SlotsList[radioStationIndex];
+                                        var toTalSlots = Model.TotalSlotsList[radioStationIndex];
+                                        var prices = Model.PricesList[radioStationIndex];
+                                        var StartDate = Model.StartDateList[radioStationIndex];
+                                        var EndDate = Model.EndDateList[radioStationIndex];
+                                        var timing = Model.TimingNameList[radioStationIndex];
+
+                                        var days = (EndDate - StartDate).Days;
+                                        int totalDays = days + 1;
+
+
+                                        var total = prices * Slots * totalDays;
+
+                                        <tr>
+
+                                            <td class="" style="width:100px;">@j</td>
+                                            <td class="">@timeBeltName</td>
+                                            <td class="">@Slots</td>
+                                            <td class="">@toTalSlots</td>
+                                            <td class="">@prices.ToString("#,0.0") </td>
+                                            <td class="">@StartDate</td>
+                                            <td class="">@EndDate</td>
+                                            <td>  @totalDays  </td>
+                                            <td class="">@timing</td>
+                                            <td class="">@total.ToString("#,0.0")</td>
+
+
+                                        </tr>
+
+                                    }
+
+
+
+                                }
+
+                            </tbody>
+
+                        </table>
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+
+                <div class="col-md-offset-3 text-md-right">
+                    <h2><strong>Total: </strong></h2>
+                    <h2 class="text text-danger"><strong>@Model.FinalAmount.ToString("#,0.0")</strong></h2>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+</div>

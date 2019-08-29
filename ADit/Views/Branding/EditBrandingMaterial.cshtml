@@ -1,0 +1,98 @@
+﻿@model ADit.Interfaces.IBrandingMaterialView
+
+@{
+    ViewBag.Title = "AA HRMS - Edit Job Title";
+}
+
+@section PageTitle{
+   Update Branding Material
+}
+
+<div class="jumbotron container">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("EditBrandingMaterial", "Branding", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="BrandingMaterialId" name="BrandingMaterialId" value="@Model.BrandingMaterialId" />
+
+        <div class="form-group">
+            <div>
+                <div class="form-group">
+                    <div class="label column ">
+                        <span style="color:red;">*</span>Material Name:
+                    </div>
+                    <div class="data column " style="overflow: hidden;">
+                        <input id="Description" name="Description" class="form-control" type="text" maxlength="50" value="@Model.Description" />
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row pl-3" >
+                    <div class="form-group ">
+                        <input class="grayButton btn btn-primary" id="btnSubmit" name="submitButton" disabled type="submit" value="Submit" />
+                    </div>
+                    <div class="form-group ml-1">
+                        <input id="btnCancel" class="btn btn-danger enabledButton" name="submitButton"                              type="submit" value="Cancel" />
+                    </div>
+                </div>
+
+
+
+
+                <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+                    You must enter all information above correctly to enable submission.
+                </div>
+            </div>
+           
+        </div>
+    }
+</div>
+
+
+
+
+
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("span.ui-dialog-title").text('Edit Branding Material ');
+                    $('#btnCancel').click(function () {
+                     
+                   window.location.href = '/Branding/Material';
+                return false;
+            });
+
+
+            $('#Description').bind('input propertychange',
+                function () {
+
+                    $('#btnSubmit').prop("class", "grayButton");
+                $('#btnSubmit').prop("disabled", true);
+
+                    var description = $('#Description').val().length > 0;
+
+
+                    if ((description)
+                    ) {
+                    $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                        $('#btnSubmit').prop("disabled", false);
+                    }
+                });
+
+        });
+</script>
+
+            
+
+
+
+

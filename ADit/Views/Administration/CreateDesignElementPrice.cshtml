@@ -1,0 +1,192 @@
+﻿@model ADit.Interfaces.IDesignElementPriceView
+
+@{
+    ViewBag.Title = "Save Design Element Price";
+}
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@section PageTitle{
+    Add Design Element Price
+}
+
+<div class="jumbotron container">
+    <div class="form-group" style="font-size: 12px;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("CreateDesignElementPrice", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="DateCreated" name="DateCreated" value="@Model.DateCreated" />
+        <input type="hidden" id="DesignElementlId" name="BrandingMaterialPriceId" value="@Model.DesignElementPriceId" />
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Material Type:
+
+                @Html.DropDownList("DesignElementId", Model.DesignElementType, new { @class = "form-control", style = "width:204px;", id = "DesignElementlId" })
+            </div>
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Enter the amount:
+                <input class="form-control" id="Amount" name="Amount" style="width: 204px;" type="text" maxlength="100" value="@Model.Amount" />
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Service Type Type:
+
+                @Html.DropDownList("ServiceTypeCode", Model.ServiceType, new { @class = "form-control", style = "width:204px;" })
+            </div>
+            
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Comment :
+                <input class="form-control" id="Comment" name="Comment" style="width: 204px;" type="text" maxlength="100" value="@Model.Comment" />
+            </div>
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Date Effective :
+                <input class="form-control" id="EffectiveDate" name="EffectiveDate" style="width: 204px;" type="date" maxlength="100" value="@Model.EffectiveDate" />
+            </div>
+        </div>
+
+
+
+        <div class="col-12  pt-3">
+
+            <div class="pl-3 row">
+                <div class="row">
+                    <div>
+    <input type="submit" value="Submit" disabled class="btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;"/>
+                    </div>
+
+                    <div class="pl-4">
+                        <a href="/Administration/DesignElementPrice" class="btn btn-danger" id="btnCancel" name="submitButton" style="width: 80px;color:white">Cancel</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                You must enter all information above correctly to enable submission.
+            </div>
+
+        </div>
+
+    }
+</div>
+
+
+
+@section JavaScriptsExecution
+{
+    <script type="text/javascript">
+
+      
+        $(document).ready(function () {
+
+            $('#btnCancel').click(function () {
+              
+
+                window.location.href = '/Administration/DesignElement';
+                return false;
+
+            });
+
+            $("#DesignElementId").change(function () {
+               
+                $("#Amount").trigger('propertychange');
+
+            });
+
+
+
+            $("#ServiceTypeCode").change(function () {
+
+                $("#Amount").trigger('propertychange');
+              
+            });
+
+
+
+            $("#EffectiveDate").change(function () {
+
+                $("#Amount").trigger('propertychange');
+            });
+
+
+            $('#Amount').bind('input propertychange',
+                function () {
+
+                    $('#btnSubmit').prop("class", "grayButton");
+                    //   $('#btnSubmit').prop("disabled", true);
+
+                 
+
+                    var effectiveDate = $("#EffectiveDate").val().length > 0;
+
+                    var comment = $("#Comment").val().length > 0;
+                    var amount = $("#Amount").val().length > 0 && $("#Amount").val() > 0;
+                    var designElement = ($("#DesignElementId").val() != -1);
+                    var serviceType = ($("#ServiceTypeCode").val() != -1);
+                  
+                    if ((comment && amount && designElement && effectiveDate && serviceType
+
+                    
+                   
+                    ) /*&& (comment )&& (amount)*/ /*&&(comment) && (amount)*/
+                    ) {
+                      
+                      
+                        $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                        $('#btnSubmit').prop("disabled", false);
+                    }
+                });
+
+        });
+    </script>
+
+}
+
+
+@section Stylesheets{
+    <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

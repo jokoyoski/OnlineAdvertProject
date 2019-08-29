@@ -1,0 +1,283 @@
+﻿@model ADit.Interfaces.IMessageRepliesListView
+@using ADit.Interfaces.ValueTypes
+@using System.Globalization;
+@{
+    ViewBag.Title = "MessageList";
+}
+
+
+
+@{
+    var loginUsername = HttpContext.Current.Session[SessionKey.UserId].ToString();
+    int user = Convert.ToInt32(loginUsername);
+    var ifMessageExist = Model.InitialMessage != null;
+    var ifRepliesExist = Model.Replies.Count() > 0;
+}
+
+<div><p></p></div>
+<div class="container">
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="mesgs">
+                <div class="msg_history">
+                    @if (ifMessageExist)
+                    {
+                        if (Model.UserId == user)
+                        {
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p>
+                                        <span style="font-size: 12px; font-weight:bold;">Initial Message</span><br />
+                                        @Model.InitialMessage
+
+                                    </p>
+                                    <div class="form-inline">
+                                        @{
+
+                                            if (Model.IsApproved)
+                                            {
+
+                                                <label style="color:green;"><i class="fa fa-check-circle"></i></label>
+                                            }
+                                            else
+                                            {
+
+                                            }
+
+                                        }
+
+                                        &nbsp;&nbsp;
+
+                                        @{
+
+                                            if (Model.DigitalFileId > 0)
+                                            {
+                                                <div class="form-group">
+                                                    <a href="/Fulfilment/FileResult?FileId=@Model.DigitalFileId" class=""><i class="fa fa-paperclip"></i></a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="incoming_msg">
+                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p>
+                                            <span style="font-size: 12px; font-weight:bold;">Initial Message</span><br />
+                                            @Model.InitialMessage
+
+                                        </p>
+                                        <div class="form-inline">
+                                            @{
+
+                                                if (Model.IsApproved)
+                                                {
+
+                                                    <label style="color:green;"><i class="fa fa-check-circle"></i></label>
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                            }
+
+                                            &nbsp;&nbsp;
+
+                                            @{
+
+                                                if (Model.DigitalFileId > 0)
+                                                {
+                                                    <div class="form-group">
+                                                        <a href="/Fulfilment/FileResult?FileId=@Model.DigitalFileId" class=""><i class="fa fa-paperclip"></i></a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="container">
+                            <div class="alert alert-info alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="notika-icon notika-close"></i></span></button> No message Exist
+                            </div>
+
+                        </div>
+                    }
+
+
+                    @if (ifRepliesExist)
+                    {
+                        foreach (var j in Model.Replies)
+                        {
+                            if (j.userId == user)
+                            {
+                                DateTimeFormatInfo mfi = new DateTimeFormatInfo();
+                                var month1 = j.dateCreated.Month;
+                                var mainmonth = mfi.GetMonthName(month1).ToString();
+                                var time = j.dateCreated.TimeOfDay.Hours;
+                                var time2 = j.dateCreated.TimeOfDay.Minutes;
+                                var day = j.dateCreated.Day;
+                                <div class="outgoing_msg">
+                                    <div class="sent_msg">
+                                        <p>
+                                            <span style="font-size: 12px; font-weight:bold;">@j.UserName</span><br />
+                                            @j.Message
+                                        </p>
+
+                                        <span class="time_date">
+                                            @time:@if (time2 < 10)
+                                            {<span>0</span>}@time2 @if (time > 12)
+                                            {<span>pm</span> }
+                                            else
+                                            {<span>am</span>}   |    @mainmonth @day
+                                        </span>
+
+                                        <div class="form-check-inline">
+                                            @{
+
+                                                if (j.IsApproved)
+                                                {
+                                                    <i style="color:green" class="fa pull-left fa-check-circle"></i>
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                            }
+                                            &nbsp;&nbsp;
+
+                                            @{
+                                                if (j.DigitalFileId > 0)
+
+                                                {
+                                                    <div>
+                                                        <a href="/Fulfilment/FileResult?FileId=@j.DigitalFileId" class=""><i class="fa fa-paperclip"></i></a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                DateTimeFormatInfo mfi = new DateTimeFormatInfo();
+                                var month1 = j.dateCreated.Month;
+                                var mainmonth = mfi.GetMonthName(month1).ToString();
+                                var time = j.dateCreated.TimeOfDay.Hours;
+                                var time2 = j.dateCreated.TimeOfDay.Minutes;
+                                var day = j.dateCreated.Day;
+                                <div class="incoming_msg">
+                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="received_msg">
+                                        <div class="received_withd_msg">
+                                            <p>
+                                                <span style="font-size: 12px; font-weight:bold;">@j.UserName</span><br />
+                                                @j.Message
+                                            </p>
+
+                                            <span class="time_date">
+                                                @time:@if (time2 < 10)
+                                                {<span>0</span>}@time2 @if (time > 12)
+                                                {<span>pm</span> }
+                                                else
+                                                {<span>am</span>}   |    @mainmonth @day
+                                            </span>
+
+                                            <div class="form-inline">
+                                                @{
+
+                                                    if (j.IsApproved)
+                                                    {
+                                                        <i style="color:green" class="fa pull-left fa-check-circle"></i>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+
+                                                &nbsp;&nbsp;
+
+                                                @{
+                                                    if (j.DigitalFileId > 0)
+
+                                                    {
+                                                        <div>
+                                                            <a href="/Fulfilment/FileResult?FileId=@j.DigitalFileId" class=""><i class="fa fa-paperclip"></i></a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    }
+
+                    else
+                    {
+
+                    }
+
+                </div>
+                @using (Html.BeginForm("SaveReplies", "Fulfilment", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="text" hidden name="MessageId" class="form-control" value="@Model.MessageId" />
+                    <input type="text" hidden name="SentToId" class="form-control" value="@Model.SentToId" />
+                    <input type="text" hidden name="OrderId" class="form-control" value="@Model.OrderId" />
+                    <input type="text" hidden name="transactionId" class="form-control" value="@Model.transactionId" />
+                    <input type="text"  hidden name="ServiceCode" class="form-control" value="@Model.ServiceCode"/>
+                    <input type="text"  hidden name="MaterialType" class="form-control" value="@Model.MaterialType" />
+                    <div class="type_msg">
+                        <div class="input_msg_write">
+                            <input value="@Model.Messages" type="text" required placeholder="Type a message" class="" name="Messages" rows="4" cols="50" />
+                            <input type="file" id="scriptMaterial" class="fa fa-paperclip" name="scriptMaterial"
+                                   accept=".txt,.doc,.jpg ,.docx,.pdf" />
+                            <br />
+                            <button id="btnCancel" class="msg_send_btn pull-right" type="submit" name="submitButton"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            @*<input id="btnCancel" class="enabledButton btn btn-outline-dark" name="submitButton"
+                                type="submit" value="Submit" />*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!------ Include the above in your HEAD tag ---------->

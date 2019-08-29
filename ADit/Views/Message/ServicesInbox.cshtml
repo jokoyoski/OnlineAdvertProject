@@ -1,0 +1,589 @@
+﻿@model ADit.Interfaces.IMessagesListView
+
+@{
+
+    ViewBag.Title = "ServicesInbox";
+    var hasOrder = (Model != null);
+
+    var hasMessages = Model.Messages.Count > 0;
+
+
+
+}
+
+<div class="container text-center m-auto">
+    <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Inbox</h2>
+</div>
+<hr />
+
+
+<div class="container">
+    <div class="align-middle">
+        <div>
+            <div style="padding-right:unset" class="">
+
+                <a href="/Message/ServicesInbox?serviceCode=Radio" class="btn btn-primary"> Radio</a>
+                <a href="/Message/ServicesInbox?serviceCode=Television" class="btn btn-primary">Tv</a>
+                <a href="/Message/ServicesInbox?serviceCode=Branding" class="btn btn-primary"> Branding</a>
+                <a href="/Message/ServicesInbox?serviceCode=Print" class="btn btn-primary">PrintMedia</a>
+                <a href="/Message/ServicesInbox?serviceCode=online" class="btn btn-primary">Online</a>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+
+
+
+    <div class="panel-heading">
+        <span class="fa fa-comment"></span>
+        <span style="font-size:25px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif" class="panel-title">
+            Replies
+        </span>
+
+
+    </div>
+
+
+
+
+    @if (hasMessages)
+    {
+        foreach (var j in Model.Messages)
+
+        {
+
+            if (j.ServiceCode == "branding")
+            {
+
+
+
+                var indexofMessage = Model.Messages.IndexOf(j);
+
+
+                <div class="col-12 panel-body">
+                    <ul class="col-12 list-group">
+                        <li class=".col-12 col-sm-2  col-md-12 list-group-item">
+                            <div class="col-12 row">
+
+                                <div class="col-12 col-md-12">
+                                    <div>
+                                        <a href="#">
+
+                                        </a>
+                                        <div class="row">
+                                            <h5>Date</h5>
+
+
+                                            @{
+                                                if (Model.replies[indexofMessage] > 0)
+                                                {
+                                                    <h5 class="alert alert-danger">you have unread replies</h5>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            @{
+
+
+                                                if (j.IsRead == false)
+                                                {
+                                                    {
+                                                        <h5 class="alert alert-danger">you have unread Messages</h5>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            <label>
+
+
+                                            </label>
+                                        </div>
+                                        <div class="mic-info">
+
+
+                                            <label>
+
+                                                <span style="color:green">from :</span> &nbsp; &nbsp;@j.UserName
+                                            </label>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="comment-text">
+                                        <div class="data column" style="overflow: hidden;">
+
+                                            <label>
+                                                <span style="color:blue">Message Body: </span> &nbsp; &nbsp;
+                                                @j.Message
+                                                <label class="pl-0">
+                                                </label>
+                                                <br />
+
+                                                <span style="color:darkred"> To: </span>&nbsp; &nbsp;@j.UserName
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div>
+                                        <a href="/Message/RepliesById?MessageId=@j.Id" class="btn btn-sm btn-hover btn-danger"><span class="fa fa-book" style="padding-right:3px;"></span>Click to Read</a>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            }
+            {
+
+                if (j.ServiceCode == "online")
+                {
+
+                    var indexofMessage = Model.Messages.IndexOf(j);
+
+
+                    <div class="col-12 panel-body">
+                        <ul class="col-12 list-group">
+                            <li class=".col-12 col-sm-2  col-md-12 list-group-item">
+                                <div class="col-12 row">
+
+                                    <div class="col-12 col-md-12">
+                                        <div>
+                                            <a href="#">
+
+                                            </a>
+                                            <div class="row">
+                                                <h4>Date</h4>
+
+
+                                                @{
+                                                    if (Model.replies[indexofMessage] > 0)
+                                                    {
+                                                        <h5 class="alert alert-danger">you have unread replies</h5>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+
+                                                @{
+
+
+                                                    if (j.IsRead == false)
+                                                    {
+                                                        {
+                                                            <h5 class="alert alert-danger">you have unread Messages</h5>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+
+                                                <label>
+
+
+                                                </label>
+                                            </div>
+                                            <div class="mic-info">
+
+
+                                                <label>
+
+                                                    <span style="color:green">from</span> &nbsp; &nbsp;>@j.AdminName
+                                                </label>
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-control">
+                                            <div class="data" style="overflow: hidden;">
+
+                                                <label>
+                                                    <span style="color:blue">Message Body</span> &nbsp; &nbsp;
+                                                    @j.Message
+                                                    <label class="pl-0">
+                                                    </label>
+                                                    <br />
+
+                                                    <span style="color:darkred"> To: </span>@j.UserName
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                        <div>
+                                            <a href="/Message/RepliesById?MessageId=@j.Id" class="btn btn-sm btn-hover btn-danger"><span class="fa fa-book" style="padding-right:3px;"></span>Click to Read</a>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                }
+            }
+            if (j.ServiceCode == "Radio")
+            {
+
+                var indexofMessage = Model.Messages.IndexOf(j);
+
+
+                <div class="col-12 panel-body">
+                    <ul class="col-12 list-group">
+                        <li class=".col-12 col-sm-2  col-md-12 list-group-item">
+                            <div class="col-12 row">
+
+                                <div class="col-12 col-md-12">
+                                    <div>
+                                        <a href="#">
+
+                                        </a>
+                                        <div class="row">
+                                            <h5>Date</h5>
+
+
+                                            @{
+                                                if (Model.replies[indexofMessage] > 0)
+                                                {
+                                                    <h5 class="alert alert-danger">you have unread replies</h5>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            @{
+
+
+                                                if (j.IsRead == false)
+                                                {
+                                                    {
+                                                        <h5 class="alert alert-danger">you have unread Messages</h5>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            <label>
+
+
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+
+
+                                            <label>
+
+                                                <span style="color:green">from:  </span> &nbsp; &nbsp;>@j.AdminName
+                                            </label>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="data" style="overflow: hidden;">
+
+                                            <label>
+                                                <span style="color:blue">Message Body: </span> &nbsp; &nbsp;
+                                                @j.Message
+                                                <label class="pl-0">
+                                                </label>
+                                                <br />
+
+                                                <span style="color:darkred"> To: </span>@j.UserName
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div>
+                                        <a href="/Message/RepliesById?MessageId=@j.Id" class="btn btn-sm btn-hover btn-danger"><span class="fa fa-book" style="padding-right:3px;"></span>Click to Read</a>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            }
+
+            if (j.ServiceCode == "Print")
+            {
+
+                var indexofMessage = Model.Messages.IndexOf(j);
+
+
+                <div class="col-12 panel-body">
+                    <ul class="col-12 list-group">
+                        <li class=".col-12 col-sm-2  col-md-12 list-group-item">
+                            <div class="col-12 row">
+
+                                <div class="col-12 col-md-12">
+                                    <div>
+                                        <a href="#">
+
+                                        </a>
+                                        <div class="row">
+                                            <h5>Date</h5>
+
+
+                                            @{
+                                                if (Model.replies[indexofMessage] > 0)
+                                                {
+                                                    <h4 class="alert alert-danger">you have unread replies</h4>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            @{
+
+
+                                                if (j.IsRead == false)
+                                                {
+                                                    {
+                                                        <h4 class="alert alert-danger">you have unread Messages</h4>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            <label>
+
+
+                                            </label>
+                                        </div>
+                                        <div class="mic-info">
+
+
+                                            <label>
+
+                                                <i style="color:green">from</i> &nbsp; &nbsp;>@j.AdminName
+                                            </label>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="comment-text">
+                                        <div class="data column" style="overflow: hidden;">
+
+                                            <label>
+                                                <i style="color:blue">Message Body</i> &nbsp; &nbsp;
+                                                @j.Message
+                                                <label class="pl-0">
+                                                </label>
+                                                <br />
+
+                                                <span style="color:darkred"> To</span>@j.UserName
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div>
+                                        <a href="/Message/RepliesById?MessageId=@j.Id" class="btn btn-sm btn-hover btn-danger"><span class="glyphicon glyphicon-remove" style="padding-right:3px;"></span>Click to Read</a>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            }
+
+
+            if (j.ServiceCode == "Television")
+            {
+
+                var indexofMessage = Model.Messages.IndexOf(j);
+
+
+                <div class="col-12 panel-body">
+                    <ul class="col-12 list-group">
+                        <li class=".col-12 col-sm-2  col-md-12 list-group-item">
+                            <div class="col-12 row">
+
+                                <div class="col-12 col-md-12">
+                                    <div>
+                                        <a href="#">
+
+                                        </a>
+                                        <div class="row">
+                                            <h4>Date</h4>
+
+
+                                            @{
+                                                if (Model.replies[indexofMessage] > 0)
+                                                {
+                                                    <h4 class="alert alert-danger">you have unread replies</h4>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            @{
+
+
+                                                if (j.IsRead == false)
+                                                {
+                                                    {
+                                                        <h4 class="alert alert-danger">you have unread Messages</h4>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+
+                                            <label>
+
+
+                                            </label>
+                                        </div>
+                                        <div class="mic-info">
+
+
+                                            <label>
+
+                                                <i style="color:green">from</i> &nbsp; &nbsp;>@j.AdminName
+                                            </label>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="comment-text">
+                                        <div class="data column" style="overflow: hidden;">
+
+                                            <label>
+                                                <i style="color:blue">Message Body</i> &nbsp; &nbsp;
+                                                @j.Message
+                                                <label class="pl-0">
+                                                </label>
+                                                <br />
+
+                                                <span style="color:darkred"> To</span>@j.UserName
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div>
+                                        <a href="/Message/RepliesById?MessageId=@j.Id" class="btn btn-sm btn-hover btn-danger"><span class="glyphicon glyphicon-remove" style="padding-right:3px;"></span>Click to Read</a>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        <h5>You have no message</h5>
+    }
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+</div>
+
+
+

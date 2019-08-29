@@ -1,0 +1,38 @@
+﻿@model ADit.Interfaces.IRadioProductionView
+
+
+<div class="jumbotron">
+    @using (Html.BeginForm("UploadRadioProduction", "Radio", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="text" hidden value="@Model.RadioTransactionId" />
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                Upload :
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="file" id="productionMaterial" name="productionMaterial" style="width: 250px;"
+                       accept=".jpg,.png,.bmp,.zip,.mp3,.mp4,3gp,.mkv " title="Upload ypur Produced Material" />
+            </div>
+        </div>
+
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                Admin Notes
+            </div>
+            <textarea value="" name="ProductionManagerNote" rows="4" cols="50">
+
+          </textarea>
+        </div>
+
+
+
+        <div class="column" style="margin-left: 15px;">
+            <input id="btnCancel" class="enabledButton" name="submitButton" style="width: 80px;"
+                   type="submit" value="Submit" />
+        </div>
+    }
+    </div>

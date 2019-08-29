@@ -1,0 +1,229 @@
+﻿@model ADit.Interfaces.IRadioProductionListView
+@{
+    ViewBag.Title = "GetRadioProductionViewById";
+}
+
+<h2>GetRadioProductionViewById</h2>
+
+@{ 
+    var hasMaterial = Model.UploadedProductionMaterialDetail != null;
+    var Material = "#";
+    if (hasMaterial)
+    {
+        var nBase64 = Convert.ToBase64String(Model.UploadedProductionMaterialDetail.FileContent);
+        Material = string.Format("data:{0};base64,{1}", Model.UploadedProductionMaterialDetail.ContentType, nBase64);
+    }
+
+    var hasproduction = (Model != null) && (Model.radioProductionCollection.Any());
+}
+
+@using (Html.BeginForm("Radio", "Radio", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4></h4>
+        <hr />
+        <p class="text-danger">@Html.ValidationSummary()</p>
+        <p class="text-danger"> @Model.processingMessage</p>
+
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                <span class="required">*</span> Name of User:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="UserId" name="UserId" style="width: 204px;" type="text" maxlength="100" value="@Model.Name" />
+            </div>
+        </div>
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                <span class="required">*</span> TransactionId:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="UerId" name="RadioTransactionId" style="width: 204px;" type="text" maxlength="100" value="@Model.RadioTransactionId" />
+            </div>
+        </div>
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                <span class="required">*</span> Order Title:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="UerId" name="OrderTitle" style="width: 204px;" type="text" maxlength="100" value="@Model.OrderTitle" />
+            </div>
+        </div>
+
+
+           <a href="UploadRadioProduction?Id=@Model.RadioTransactionId"> Upload</a>
+      
+        <a href="@Material" class="btn btn-primary">Download your Material</a>
+
+        
+
+        @if (hasproduction)
+        {
+            <div class="columns" style="font-size: 12px; width: 100%; font-style: italic;">
+                Hold down the shift key to sort with multiple columns.
+            </div>
+            <div class="columns" style="width: 100%;">
+                <div class="column" style="width: 100%;">
+                    <table id="tableList" class="tablesorter" style="border-color: transparent; width: 100%;">
+                        <colgroup>
+                            <col style="width: 50px;" />
+                            <col style="width: 150px;" />
+                            <col style="width: 80px;" />
+                            <col style="width: 80px;" />
+                            <col style="width: 80px;" />
+                        </colgroup>
+                        <thead style="width: 100%;">
+                            <tr style="width: 100%;">
+                                <th> RadioProductionId</th>
+                                <th>RadioTransactionId</th>
+                                <th>RadioUserProductionDigitalId</th>
+                                <th> RadioUserProductionDigitalId</th>
+                                <th> DateCreated</th>
+                                <th>   ProductionManagerNote</th>
+                                <th>    UserNote</th>
+                                <th>  ProductionManagerId  </th>
+                                <th>IsActive </th>
+                               
+                              
+                                <th colspan="2">
+                                    <a id="bm_add_0" class="popupUrl" href="/Online/AddOnlinePurpose">Add Online Purpose </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var j in Model.radioProductionCollection)
+                            {
+
+
+                                <tr style="width: 100%;">
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.RadioProductionId
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.RadioTransactionId
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.RadioUserProductionDigitalId
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.RadioManagerProductionDigitalId
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.DateCreated
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.ProductionManagerNote
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.UserNote
+                                    </td>
+
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.ProductionManagerId
+                                    </td>
+                                    <td style="border: 1px solid #FFF !important;">
+                                        @j.IsActive
+                                    </td>
+                                </tr>
+
+
+
+                                 }
+
+</tbody>
+                    </table>
+                    </div>
+                </div>
+          }
+             else
+
+                    {
+
+                    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; margin-top: 15px; width: 100%;">
+                        <div class="validation-summary-errors">
+                            No Material meets search criteria or none is setup
+                        </div>
+                    </div>
+                }
+
+
+                </div>
+  }
+
+
+@section JavaScriptsIncludes
+{
+    <script src="/Scripts/jquery-ui-1.12.1.js" type="text/javascript"></script>
+    <script src="/Scripts/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="/Scripts/tablesorter/jquery.tablesorter.widgets.js" type="text/javascript"></script>
+    <script src="/Scripts/tablesorter/jquery.tablesorter.pager.js" type="text/javascript"></script>
+}
+@section JavaScriptsExecution
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#tableList').tablesorter({
+                    theme: 'blue',
+                    headers: { 3: { sorter: false }, 4: { sorter: false } },
+                    widthFixed: true,
+                    widgets: ['zebra'],
+                    size: 10
+                }).tablesorterPager({ container: $("#pager"), size: 10 });
+            });
+
+            // popup page
+            var $popupDialog = $('<div></div>').dialog({
+                autoOpen: false,
+                width: 750,
+                modal: true,
+                title: '',
+                closeText: "",
+                closeOnEscape: true,
+                resizable: true
+            });
+
+
+            $('.popupUrl').click(function () {
+                $popupDialog.html('<img src="/Content/Images/ajaxLoaderBlue.gif" alt="Viewing page..."/>');
+
+                $("span.ui-dialog-title").text('Loading the Page');
+
+                var dt = new Date();
+                var theTime = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                var href = this.href + '&theTime=' + theTime;
+
+                $popupDialog.load(encodeURI(href));
+                $popupDialog.dialog('open');
+
+                return false;
+            });
+
+            $('#bm_add_0').click(function () {
+                $popupDialog.html('<img src="/Content/Images/ajaxLoaderBlue.gif" alt="Viewing page..."/>');
+
+                $("span.ui-dialog-title").text('Loading the Page');
+
+                var dt = new Date();
+                var theTime = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                var href = this.href + '&theTime=' + theTime;
+
+                $popupDialog.load(encodeURI(href));
+                $popupDialog.dialog('open');
+
+                return false;
+            });
+
+        });
+    </script>
+}
+@section Stylesheets
+{
+    <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/tablesorter/theme.blue.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/tablesorter/jquery.tablesorter.pager.css" rel="stylesheet" type="text/css" />
+}

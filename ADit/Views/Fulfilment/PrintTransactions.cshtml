@@ -1,0 +1,269 @@
+﻿@model ADit.Interfaces.IPrintMediaModelView
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="receipt-main col-xs-10 col-sm-10 col-md-12 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="receipt-header">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+
+                    </div>
+                    @*<div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <div class="receipt-right">
+                        <h5>TechiTouch.</h5>
+                        <p>+91 12345-6789 <i class="fa fa-phone"></i></p>
+                        <p>info@gmail.com <i class="fa fa-envelope-o"></i></p>
+                        <p>Australia <i class="fa fa-location-arrow"></i></p>
+
+                    </div>
+                </div>*@
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="receipt-header receipt-header-mid">
+                    <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                        <div class="receipt-right">
+                            <h5>@Model.Name <small> </small></h5>
+                            <p><b>Mobile :</b> @Model.PhoneNumber</p>
+                            <p><b>Email :</b> @Model.Email</p>
+                            <p> Date</p>@Model.DateCreated
+
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-12 ">
+                        <div class=" row">
+                            <h3 style="color:dodgerblue" class="">Order Title:</h3> <h2>@Model.OrderTitle</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th>Options</th>
+                            <th>Selections</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-9">Do you Have Artwork</td>
+                            @{
+                                if (Model.MaterialDigitalFileId > 0)
+                                {
+                                    <td class="col-md-7 btn btn-success">Artwork Uploaded</td>
+                                }
+                                else
+                                {
+                                    <td class="col-md-7"> No Artwork Uploaded</td>
+                                }
+
+
+
+                            }
+
+                        </tr>
+                        <tr>
+                            <td class="col-md-9">Apcon Type</td>
+
+
+                            <td class="col-md-7 ">@Model.ApconType</td>
+
+
+                        </tr>
+
+
+                        <tr>
+                            <td class="col-md-9">Apcon Type Price</td>
+
+
+                            <td class="col-md-7 ">@Model.ApconAmount</td>
+
+
+                        </tr>
+                        <tr>
+                            <td class="col-md-9">Apcon Number</td>
+
+
+                            <td class="col-md-7 ">@Model.ApconApprovalNumber</td>
+
+
+                        </tr>
+                        <tr>
+                            <td class="col-md-9">Print Category</td>
+
+                            <td class="btn-btn-success col-md-3"> @Model.Category</td>
+
+
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-9">Design Element</td>
+
+
+                            <td class="col-md-7 ">@Model.DesignElement</td>
+
+
+                        </tr>
+                        <tr>
+                            <td class="col-md-9">Design Element Price</td>
+
+
+                            <td class="col-md-7 ">@Model.DesignElementAmount</td>
+
+
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-9">Duration Type</td>
+
+                            <td class="bg-success col-md-3"> @Model.DurationTypes</td>
+
+
+
+                        </tr>
+
+
+
+
+
+
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="col-md-12">
+                <thead>
+                    <tr>
+                        <th class="">NewsPaper</th>
+                        <th class="">Service Type</th>
+                        <th class="">Number Of Insert</th>
+                        <th class="">Media Type</th>
+                        <th class="">Prices</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    @{
+
+                        foreach (var j in Model.NewspapersList)
+                        {
+                            var Index = Model.NewspapersList.IndexOf(j);
+                            var printServiceType = Model.PrintServciceTypeList[Index];
+                            var NumberOfInsert = Model.NummberOfInsertList[Index];
+                            var Price = Model.PricesList[Index];
+                            var printMediaType = Model.PrintMediaList[Index];
+
+                            var total = Price * NumberOfInsert;
+
+                    <tr>
+
+
+
+
+                        <td class="">@j</td>
+                        <td class="">@printServiceType</td>
+                        <td class="">@NumberOfInsert</td>
+                        <td class="">@printMediaType</td>
+                        <td class="">@total.ToString("#,0.0")</td>
+
+                    </tr>
+
+                        }
+
+
+
+                    }
+
+                </tbody>
+
+            </table>
+            <div class="form-check-inline">
+                <label> Send Message</label>
+                <input type="checkbox" id="checkBoxId" name="selectedRadioStationIds" class="form-control" />
+            </div>
+
+            <div>
+                @using (Html.BeginForm("OrderFulfilment", "Fulfilment", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="text" hidden name="URL" value="PrintTransactions" />
+                    <input type="text" hidden value="@Model.CurrentStatusCode" name="currentStatusCode" />
+                    <input type="text" hidden value="@Model.PrintTransactionId" name="transactionId" />
+                    <input type="text" hidden value="@Model.OrdeId" name="OrderId" />
+                    <input type="text" hidden value="@Model.OrderFulfilmentId" name="OrderFulfilmentId" />
+
+                    <input type="text" hidden value="@Model.UserId" name="CreatedByUserId" />
+
+
+                    <div class="container mt-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-6 m-auto card">
+                                <div class="card-header">
+                                    <h4>Upload Online Attachment</h4>
+                                </div>
+                                <div class="card-body">
+                                    @Html.ValidationSummary()
+                                    <div class="form-group">
+                                        <label for="scriptMaterial">
+                                            Upload :
+                                        </label>
+                                        <div>
+                                            <input type="file" id="Material" name="fileBase" class="btn btn-outline-dark"
+                                                   accept=".txt,.doc,.jpg ,.docx,.pdf" title="Upload your Material" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check-inline">
+                                        <label> Do you require a Response?</label>
+                                        <input type="checkbox" id="responseCheckBoxId" name="IsResponseRequired" class="form-control" />
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="MaterialDetails">
+                                            Script Notes
+                                        </label>
+                                        <textarea class="form-control" id="mailMessage" name="MailMessage" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label required"><span class="text-danger">*</span> Update Status</label>
+                                        <div class="data" style="overflow: hidden;">
+                                            @Html.DropDownList("FulfilmentStatusCode", Model.StatusCodeList, new { @class = "form-control", id = "fufilmentStatusCode" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="fufilmentStatus" class="btn btn-outline-dark" name="submitButton" style="width: 80px;"
+                                               type="submit" value="Submit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div>
+
+                <span class="alert alert-success">@Model.CurrentStatusDescription</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+</div>

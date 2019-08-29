@@ -1,0 +1,476 @@
+﻿@model ADit.Interfaces.IOrderSummaryListView
+
+@{
+
+    ViewBag.Title = "Summary";
+    var hasOrder = (Model != null);
+    var hasTv = (Model?.TvOrderModel != null && Model.TvOrderModel.Count > 0);
+    var hasPrintMedia = (Model?.PrintOrderModel != null && Model.PrintOrderModel.Count > 0);
+    var hasBranding = (Model?.BrandOrder != null && Model.BrandOrder.Count > 0);
+    var hasOnline = (Model?.OnlineOrderModel != null && Model.OnlineOrderModel.Count > 0);
+    var hasRadio = (Model?.RadioOrderModel != null && Model.RadioOrderModel.Count > 0);
+
+    decimal totalPrice = 0;
+    decimal totalTvAdvert = 0;
+    decimal totalRadioAdvert = 0;
+    decimal totalBrandingAdvert = 0;
+    decimal totalOnlineAdvert = 0;
+    decimal totalPrintAdvert = 0;
+}
+
+
+
+
+@section PageTitle{
+    Order Summary
+}
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-12">
+            @if (Model.processingMessage != null)
+            {
+                <div class="alert alert-success text-center">
+                    <strong> @Model.processingMessage</strong>
+                </div>
+            }
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+
+
+            @if (hasOrder && (hasTv || hasPrintMedia || hasOnline || hasBranding || hasRadio))
+            {
+                if (hasTv)
+                {
+                    <div class="box">
+                        <h3 class="box-title">Tv Advertisment Order</h3>
+
+                        @foreach (var tvOrder in Model.TvOrderModel)
+                        {
+                            var hasMaterial = (tvOrder.ProductionDigitalFileId != 0);
+                            var hasScript = (tvOrder.ScriptingDigitalFileId != 0);
+                            <div class="plan-selection">
+                                <div class="plan-data">
+                                    <label for="question1">@tvOrder.OrderTitle</label>
+                                    <p class="plan-text">
+
+                                        @{
+                                            if (hasMaterial)
+                                            {
+                                                <h5>you have a production Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a production Material</h5>
+                                            }
+                                        }
+
+
+                                        @{
+                                            if (hasScript)
+                                            {
+                                                <h5>you have a script Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a Scripting Material</h5>
+                                            }
+                                        }
+                                    </p>
+
+                                    @{
+                                        var tvPrice = tvOrder.FinalAmount;
+                                        totalTvAdvert += tvPrice;
+                                    }
+                                    <span class="plan-price">
+                                        &#8358; @tvPrice.ToString("#,##0.00")
+                                    </span>
+
+
+                                    <div class="col-12" style="padding-bottom: 15px">
+                                        <p class="mb-5 pull-right">
+                                            <a href="/Tv/EditCart?transactionId=@tvOrder.TVTransactionId" class="btn btn-primary mr-3">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+
+                                            <a href="/Tv/DeleteCart?Id=@tvOrder.TVTransactionId" class="btn btn-danger ">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+
+                                        </p>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        }
+
+
+                    </div>
+                }
+
+
+                if (hasRadio)
+                {
+                    <div class="box">
+                        <h3 class="box-title">Radio Advertisment Order</h3>
+
+                        @foreach (var radio in Model.RadioOrderModel)
+                        {
+                            var hasMaterial = (radio.ProductionDigitalFileId != 0);
+                            var hasScript = (radio.ScriptingDigitalFileId != 0);
+                            <div class="plan-selection">
+                                <div class="plan-data">
+                                    <label for="question1">@radio.OrderTitle</label>
+                                    <p class="plan-text">
+                                        @{
+                                            if (hasMaterial)
+                                            {
+                                                <h5>you have a production Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a production Material</h5>
+                                            }
+                                        }
+
+
+                                        @{
+                                            if (hasScript)
+                                            {
+                                                <h5>you have a script Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a Scripting Material</h5>
+                                            }
+                                        }
+                                    </p>
+
+                                    @{
+                                        var radioPrice = radio.FinalAmount;
+                                        totalRadioAdvert += radioPrice;
+                                    }
+                                    <span class="plan-price">
+                                        &#8358; @radioPrice.ToString("#,##0.00")
+                                    </span>
+
+                                    <div class="col-12" style="padding-bottom: 15px">
+                                        <p class="mb-5 pull-right">
+                                            <a href="/Radio/EditCart?transactionId=@radio.RadioTransactionId" class="btn btn-primary  mr-3">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+
+                                            <a href="/Radio/deleteById?Id=@radio.RadioTransactionId" class="btn btn-danger ">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                }
+
+                if (hasPrintMedia)
+                {
+                    <div class="box">
+                        <h3 class="box-title">Print Media Order</h3>
+
+                        @foreach (var pmOrder in Model.PrintOrderModel)
+                        {
+                            var hasMaterial = (pmOrder.MaterialDigitalFileId != 0);
+                            <div class="plan-selection">
+                                <div class="plan-data">
+                                    <label for="question1">@pmOrder.OrderTitle</label>
+                                    <p class="plan-text">
+                                        @{
+                                            if (hasMaterial)
+                                            {
+                                                <h5>you have a print Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a print Material</h5>
+                                            }
+                                        }
+                                    </p>
+                                    @{
+                                        var PmPrice = pmOrder.TotalPrice;
+                                        totalPrintAdvert += PmPrice;
+                                    }
+                                    <span class="plan-price">
+                                        &#8358; @PmPrice.ToString("#,##0.00")
+                                    </span>
+
+                                    <div class="col-12" style="padding-bottom: 15px">
+                                        <p class="mb-5 pull-right">
+                                            <a href="/Print/EditPrint?transactionId=@pmOrder.PrintTransactionId" class="btn btn-primary mr-3">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+
+                                            <a href="/Print/DeletePrint?transactionId=@pmOrder.PrintTransactionId" class="btn btn-danger ">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                }
+
+                if (hasBranding)
+                {
+                    <div class="box">
+                        <h3 class="box-title"> Branding Order</h3>
+
+                        @foreach (var brandOrder in Model.BrandOrder)
+                        {
+                            var hasbrandMaterial = (brandOrder.BrandingFileId != 0);
+                            <div class="plan-selection">
+                                <div class="plan-data">
+                                    <label for="question1">@brandOrder.OrderTitle</label>
+                                    <p class="plan-text">
+                                        @{
+                                            if (hasbrandMaterial)
+                                            {
+                                                <h5>you have a brand Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a brand Material</h5>
+                                            }
+                                        }
+                                    </p>
+                                    @{
+                                        var brandPrice = brandOrder.BrandingMaterialAmount + brandOrder.DesignElementAmount;
+                                        totalBrandingAdvert += brandPrice;
+                                    }
+                                    <span class="plan-price">
+                                        &#8358; @brandPrice.ToString("#,##0.00")
+                                    </span>
+
+                                    <div class="col-12" style="padding-bottom: 15px">
+                                        <p class="mb-5 pull-right">
+                                            <a href="/Branding/EditTransaction?transactionId=@brandOrder.BrandingTransactionId" class="btn btn-primary mr-3">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+
+                                            <a href="/Print/DeletePrint?transactionId=@brandOrder.BrandingTransactionId" class="btn btn-danger ">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                }
+
+                if (hasOnline)
+                {
+                    <div class="box">
+                        <h3 class="box-title">Online Advertisment Order</h3>
+
+                        @foreach (var onlineOrder in Model.OnlineOrderModel)
+                        {
+                            var hasOnlineMaterial = (onlineOrder.ArtworkDigitalFileId != 0);
+                            <div class="plan-selection">
+                                <div class="plan-data">
+                                    <label for="question1">@onlineOrder.OrderTitle</label>
+                                    <p class="plan-text">
+                                        @{
+                                            if (hasOnlineMaterial)
+                                            {
+                                                <h5>you have a online Material</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>you do not have a online Material</h5>
+                                            }
+                                        }
+
+                                    </p>
+                                    @*                        <p>Art Works Amount: </p>@onlineOrder.ArtWorkAmount*@
+                                    @*                        <p>Online Extra Service Amount: </p>@onlineOrder.OnlineExtraServiceAmount*@
+                                    @*                        <p>Online EPlatform Amount: </p>@onlineOrder.Price*@
+
+
+                                    @{
+                                        var onlinePrice = onlineOrder.Price;
+                                        totalOnlineAdvert += onlinePrice;
+                                    }
+                                    <span class="plan-price">
+                                        &#8358; @onlinePrice.ToString("#,##0.00")
+                                    </span>
+                                    <div class="col-12" style="padding-bottom: 15px">
+                                        <p class="mb-5 pull-right">
+                                            <a href="/Online/EditCart?transactionId=@onlineOrder.OnlineTransactionId" class="btn btn-primary mr-3">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+
+                                            <a href="/Online/DeleteCart?transactionId=@onlineOrder.OnlineTransactionId" class="btn btn-danger ">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                }
+                <a href="/Service" class="btn btn-primary btn-lg mb30">Continue Shopping</a>
+            }
+            else
+            {
+                <div class="alert alert-danger">You have no order in the cart</div>
+            }
+
+
+
+
+        </div>
+
+        @{
+            totalPrice = totalTvAdvert + totalRadioAdvert + totalBrandingAdvert + totalOnlineAdvert + totalPrintAdvert;
+        }
+
+        @if (totalPrice > 0)
+        {
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+
+                <div class="widget">
+                    <h4 class="widget-title">Order Summary</h4>
+
+                    @if (totalTvAdvert > 0)
+                    {
+                        <div class="summary-block">
+                            <div class="summary-content">
+                                <div class="summary-head">
+                                    <h5 class="summary-title">Total TV Advert </h5>
+                                </div>
+                                <div class="summary-price">
+                                    <p class="summary-text">
+                                        &#8358; @totalTvAdvert.ToString("#,##0.00")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (totalPrintAdvert > 0)
+                    {
+                        <div class="summary-block">
+                            <div class="summary-content">
+                                <div class="summary-head">
+                                    <h5 class="summary-title">Total Print Media Advert </h5>
+                                </div>
+                                <div class="summary-price">
+                                    <p class="summary-text">
+                                        &#8358; @totalPrintAdvert.ToString("#,##0.00")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (totalBrandingAdvert > 0)
+                    {
+                        <div class="summary-block">
+                            <div class="summary-content">
+                                <div class="summary-head">
+                                    <h5 class="summary-title">Total branding Advert </h5>
+                                </div>
+                                <div class="summary-price">
+                                    <p class="summary-text">
+                                        &#8358; @totalBrandingAdvert.ToString("#,##0.00")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (totalOnlineAdvert > 0)
+                    {
+                        <div class="summary-block">
+                            <div class="summary-content">
+                                <div class="summary-head">
+                                    <h5 class="summary-title">Total Online Advert </h5>
+                                </div>
+                                <div class="summary-price">
+                                    <p class="summary-text">
+                                        &#8358; @totalOnlineAdvert.ToString("#,##.00")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    @if (totalRadioAdvert > 0)
+                    {
+                        <div class="summary-block">
+                            <div class="summary-content">
+                                <div class="summary-head">
+                                    <h5 class="summary-title">Total Radio Advert </h5>
+                                </div>
+                                <div class="summary-price">
+                                    <p class="summary-text">
+                                        &#8358; @totalRadioAdvert.ToString("#,##0.00")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+                    @if (totalPrice > 0)
+                    {
+                        <div class="summary-block">
+                            <div class="summary-content">
+                                <div class="summary-head">
+                                    <h5 class="summary-title">Total</h5>
+                                </div>
+                                <div class="summary-price">
+                                    <p class="summary-text">
+                                        &#8358; @totalPrice.ToString("#,##0.00")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+
+                <a href="/Order/CheckOut" class="btn btn-primary pull-right ">Checkout</a>
+
+
+            </div>
+        }
+
+    </div>
+
+
+</div>

@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F70CB5D0-6967-4D62-8CE5-1791708558B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ADit.Domain</RootNamespace>
+    <AssemblyName>ADit.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AA.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\AA.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvcSiteMapProvider, Version=4.6.22.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.22\lib\net45\MvcSiteMapProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PayStack.Net, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paystack.Net.0.7.1\lib\netstandard2.0\PayStack.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="PayStackDotNetSDK, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayStackDotNetSDK.1.4.4\lib\netstandard2.0\PayStackDotNetSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.10.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\CheckUserLogin.cs" />
+    <Compile Include="Factories\FulfilmentFactory.cs" />
+    <Compile Include="Factories\MessageFactory.cs" />
+    <Compile Include="Factories\OrderListView.cs" />
+    <Compile Include="FulfilmentServiceSummaryView.cs" />
+    <Compile Include="Models\BrandingAttachmentTransactionListView.cs" />
+    <Compile Include="Models\BrandingAttachmmentTransactionView.cs" />
+    <Compile Include="Models\BrandingTransactionListView.cs" />
+    <Compile Include="Extensions\stringExtensions.cs" />
+    <Compile Include="Factories\OrderSummaryFactory.cs" />
+    <Compile Include="Factories\ScriptingFactory.cs" />
+    <Compile Include="Models\ApconApprovalTypePriceListView.cs" />
+    <Compile Include="Attributes\AccessAttributes.cs" />
+    <Compile Include="Factories\AccountViewsModelFactory.cs" />
+    <Compile Include="Factories\BrandingFactory.cs" />
+    <Compile Include="Factories\CartFactory.cs" />
+    <Compile Include="Factories\CartItem.cs" />
+    <Compile Include="Factories\EmailFactory.cs" />
+    <Compile Include="Factories\GeneralFactory.cs" />
+    <Compile Include="Factories\OnlineFactory.cs" />
+    <Compile Include="Factories\PrintFactory.cs" />
+    <Compile Include="Factories\Product.cs" />
+    <Compile Include="Factories\RadioViewsModelFactory.cs" />
+    <Compile Include="Factories\ShoppingCart.cs" />
+    <Compile Include="Factories\TvFactory.cs" />
+    <Compile Include="Models\ApconApprovalTypeListView.cs" />
+    <Compile Include="Models\ApconApprovalTypePriceView.cs" />
+    <Compile Include="Models\ApconApprovalTypeView.cs" />
+    <Compile Include="Models\ApconApprovalView.cs" />
+    <Compile Include="Models\ContactView.cs" />
+    <Compile Include="Models\DemoView.cs" />
+    <Compile Include="Models\DesignElementPriceListView.cs" />
+    <Compile Include="Models\DesignElementPriceView.cs" />
+    <Compile Include="Models\BrandingMaterialListView.cs" />
+    <Compile Include="Models\BrandingMaterialPriceView.cs" />
+    <Compile Include="Models\BrandingMaterialView.cs" />
+    <Compile Include="Models\BrandingView.cs" />
+    <Compile Include="Models\CartView.cs" />
+    <Compile Include="Models\ColorListView.cs" />
+    <Compile Include="Models\ColorView.cs" />
+    <Compile Include="Models\DesignElementListView.cs" />
+    <Compile Include="Models\DesignElementView.cs" />
+    <Compile Include="Models\DurationTypeListView.cs" />
+    <Compile Include="Models\DurationTypeView.cs" />
+    <Compile Include="Models\EmailDetail.cs" />
+    <Compile Include="Models\FufilmentPaymentView.cs" />
+    <Compile Include="Models\FulfilmentPaymentListView.cs" />
+    <Compile Include="Models\FulfilmentStatusRuleView.cs" />
+    <Compile Include="Models\FulfilmentStatusSummaryViewModel.cs" />
+    <Compile Include="Models\IBrandingAttachmentTransactionView.cs" />
+    <Compile Include="Models\InboxListView.cs" />
+    <Compile Include="Models\MessagesListView.cs" />
+    <Compile Include="Models\MessageView.cs" />
+    <Compile Include="Models\OnlineArtworkPriceView.cs" />
+    <Compile Include="Models\OnlineArtworkTransactionListView.cs" />
+    <Compile Include="Models\OnlineArtworkTransactionView.cs" />
+    <Compile Include="Models\OnlineDurationList.cs" />
+    <Compile Include="Models\OnlineDurationView.cs" />
+    <Compile Include="Models\OnlinePackagesDurationPriceView.cs" />
+    <Compile Include="Models\OnlineTransactionAiringModel.cs" />
+    <Compile Include="Models\OnlineTransactionAiringView.cs" />
+    <Compile Include="Models\OnlineTransactionListView.cs" />
+    <Compile Include="Models\OnlineTransactionUIView.cs" />
+    <Compile Include="Models\OrderFulfilmentActivityView.cs" />
+    <Compile Include="Models\OrderFulfilmentListView.cs" />
+    <Compile Include="Models\OrderFulfilmentStatusCodeView.cs" />
+    <Compile Include="Models\OrderFulfilmentView.cs" />
+    <Compile Include="Models\OrderFulfmentActivityDocumentView.cs" />
+    <Compile Include="Models\OrderView.cs" />
+    <Compile Include="Models\PasswordView.cs" />
+    <Compile Include="Models\PaymentCallModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\PrintMediaTypeListView.cs" />
+    <Compile Include="Models\PrintMediaTypeView.cs" />
+    <Compile Include="Models\PrintServiceColorListView.cs" />
+    <Compile Include="Models\PrintServiceColorView.cs" />
+    <Compile Include="Models\PrintTransactionAiringModel.cs" />
+    <Compile Include="Models\PrintTransactionAiringUI.cs" />
+    <Compile Include="Models\PrintTransactionListView.cs" />
+    <Compile Include="Models\PrintTransactionUI.cs" />
+    <Compile Include="Models\PrintTransactionView.cs" />
+    <Compile Include="Models\RadioAiringTransactionModel.cs" />
+    <Compile Include="Models\RadioMainView.cs" />
+    <Compile Include="Models\RadioMaterialTransactionView.cs" />
+    <Compile Include="Models\MessageRepliesListView.cs" />
+    <Compile Include="Models\RadioScriptTransactionListView.cs" />
+    <Compile Include="Models\RadioScriptTransactionVew.cs" />
+    <Compile Include="Models\RadioServicePriceListMain.cs" />
+    <Compile Include="Models\LogOnView.cs" />
+    <Compile Include="Models\MaterialPriceListView.cs" />
+    <Compile Include="Models\MaterialPriceView.cs" />
+    <Compile Include="Models\MaterialProductionPriceView.cs" />
+    <Compile Include="Models\MaterialScriptingPriceView.cs" />
+    <Compile Include="Models\MaterialTypeListView.cs" />
+    <Compile Include="Models\MaterialTypeTimingListView.cs" />
+    <Compile Include="Models\MaterialTypeTimingView.cs" />
+    <Compile Include="Models\MaterialTypeView.cs" />
+    <Compile Include="Models\NewsPaperListView.cs" />
+    <Compile Include="Models\NewsPaperView.cs" />
+    <Compile Include="Models\OnlineArtworkPriceListView.cs" />
+    <Compile Include="Models\OnlineExtraServiceListView.cs" />
+    <Compile Include="Models\OnlineExtraServicePriceListView.cs" />
+    <Compile Include="Models\OnlineExtraServicePriceView.cs" />
+    <Compile Include="Models\OnlineExtraServiceView.cs" />
+    <Compile Include="Models\OnlineOrderModel.cs" />
+    <Compile Include="Models\OnlinePlatformListView.cs" />
+    <Compile Include="Models\OnlinePlatformPackagePriceView.cs" />
+    <Compile Include="Models\OnlinePlatformView.cs" />
+    <Compile Include="Models\OnlinePurposeListView.cs" />
+    <Compile Include="Models\OnlinePurposeView.cs" />
+    <Compile Include="Models\OnlineView.cs" />
+    <Compile Include="Models\OrderSummaryListView.cs" />
+    <Compile Include="Models\PlatformPackagePriceListView.cs" />
+    <Compile Include="Models\PlatformPackagePriceView.cs" />
+    <Compile Include="Models\PrintCategoryListView.cs" />
+    <Compile Include="Models\PrintCategoryView.cs" />
+    <Compile Include="Models\PrintMediaModelView.cs" />
+    <Compile Include="Models\PrintMediaModelViewList.cs" />
+    <Compile Include="Models\PrintNewsPaperListView.cs" />
+    <Compile Include="Models\PrintServiceTypeListView.cs" />
+    <Compile Include="Models\PrintServiceTypePriceListView.cs" />
+    <Compile Include="Models\PrintServiceTypePriceView.cs" />
+    <Compile Include="Models\PrintServiceTypeView.cs" />
+    <Compile Include="Models\PrintTransactionAiringView.cs" />
+    <Compile Include="Models\PrintView.cs" />
+    <Compile Include="Models\ProductionPriceListView.cs" />
+    <Compile Include="Models\ProductionPriceView.cs" />
+    <Compile Include="Models\RadionMainListView.cs" />
+    <Compile Include="Models\RadioOrderModel.cs" />
+    <Compile Include="Models\RadioProductionListView.cs" />
+    <Compile Include="Models\RadioProductionView.cs" />
+    <Compile Include="Models\RadioServicePriceListView.cs" />
+    <Compile Include="Models\RadioStationListView.cs" />
+    <Compile Include="Models\RadioStationView.cs" />
+    <Compile Include="Models\RadioTransactionAiringView.cs" />
+    <Compile Include="Models\RadioTransactionListView.cs" />
+    <Compile Include="Models\RadioTransactionMaterialListView.cs" />
+    <Compile Include="Models\RadioTransactionUIView.cs" />
+    <Compile Include="Models\RadioTransactionView.cs" />
+    <Compile Include="Models\RegistrationView.cs" />
+    <Compile Include="Models\RepliesView.cs" />
+    <Compile Include="Models\ScriptingPriceListView.cs" />
+    <Compile Include="Models\ScriptingPriceView.cs" />
+    <Compile Include="Models\ScriptingView.cs" />
+    <Compile Include="Models\ScriptingViewList.cs" />
+    <Compile Include="Models\TimeBeltListView.cs" />
+    <Compile Include="Models\TimeBeltView.cs" />
+    <Compile Include="Models\TimingListView.cs" />
+    <Compile Include="Models\TimingView.cs" />
+    <Compile Include="Models\TvServicePriceListMainView.cs" />
+    <Compile Include="Models\TVServicesPricesListView.cs" />
+    <Compile Include="Models\TvStationListView.cs" />
+    <Compile Include="Models\TvStationView.cs" />
+    <Compile Include="Models\TvTransactionAiringModel.cs" />
+    <Compile Include="Models\TvTransactionAiringUI.cs" />
+    <Compile Include="Models\TVTransactionAiringView.cs" />
+    <Compile Include="Models\TvTransactionListView.cs" />
+    <Compile Include="Models\TvTransactionMaterialListView.cs" />
+    <Compile Include="Models\TvTransactionUI.cs" />
+    <Compile Include="Models\TvTransactionUIView.cs" />
+    <Compile Include="Models\TvTransactionView.cs" />
+    <Compile Include="Models\TvView.cs" />
+    <Compile Include="Models\UserListView.cs" />
+    <Compile Include="Models\UserRolesView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\SiteMapNodeVisibilityProvider.cs" />
+    <Compile Include="Resources\Common.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\BrandingService.cs" />
+    <Compile Include="Services\CartService.cs" />
+    <Compile Include="Services\DigitalServices.cs" />
+    <Compile Include="Services\FulfilmentService.cs" />
+    <Compile Include="Services\GeneralService.cs" />
+    <Compile Include="Services\LookupServices.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\OnlineService.cs" />
+    <Compile Include="Services\OrderServices.cs" />
+    <Compile Include="Services\PrintService.cs" />
+    <Compile Include="Services\RadioServices.cs" />
+    <Compile Include="Services\ScriptingService.cs" />
+    <Compile Include="Services\TransactionService.cs" />
+    <Compile Include="Services\TvServices.cs" />
+    <Compile Include="UserView.cs" />
+    <Compile Include="Utilities\CodeGenerators.cs" />
+    <Compile Include="Utilities\GetDropDownBrandingMaterialList.cs" />
+    <Compile Include="Utilities\GetDropDownColorList.cs" />
+    <Compile Include="Utilities\GetDropDownDesignElementList.cs" />
+    <Compile Include="Utilities\GetDropdownDurationTypeList.cs" />
+    <Compile Include="Utilities\GetDropDownList.cs" />
+    <Compile Include="Utilities\GetDropDownListDigitalType.cs" />
+    <Compile Include="Utilities\GetDropDownListTvStation.cs" />
+    <Compile Include="Utilities\GetDropdownMaterialTypeList.cs" />
+    <Compile Include="Utilities\GetDropDownNewspaperList.cs" />
+    <Compile Include="Utilities\GetDropDownPrintCategoryList.cs" />
+    <Compile Include="Utilities\GetDropDownPrintServiceColors.cs" />
+    <Compile Include="Utilities\GetDropDownServiceTypeList.cs" />
+    <Compile Include="Utilities\GetDropDownTimeBelt.cs" />
+    <Compile Include="Utilities\GetDropdownTimingList.cs" />
+    <Compile Include="Utilities\GetDropDownTvStationList.cs" />
+    <Compile Include="Utilities\GetOnlineArtWorkDropdownList.cs" />
+    <Compile Include="Utilities\GetOnlineExtraServiceDropdownList.cs" />
+    <Compile Include="Utilities\GetOnlinePurposeDropdownList.cs" />
+    <Compile Include="Utilities\GetOrderStatusDropdown.cs" />
+    <Compile Include="Utilities\GetUserRolesDropdown.cs" />
+    <Compile Include="Utilities\OnlinePlatformDropdownList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Common.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ADit.Interfaces\ADit.Interfaces.csproj">
+      <Project>{3564823a-6baf-409c-a1fb-d9f564a32d2c}</Project>
+      <Name>ADit.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ADit.Repositories\ADit.Repositories.csproj">
+      <Project>{45C42C18-F0A9-412E-857D-06BA29934A42}</Project>
+      <Name>ADit.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

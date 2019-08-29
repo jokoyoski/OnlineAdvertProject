@@ -1,0 +1,59 @@
+﻿@model ADit.Interfaces.IDurationTypeView
+
+@{
+    ViewBag.Title = "DeleteDurationType ";
+}
+
+@section PageTitle{
+    Delete DurationType
+}
+
+
+
+
+
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("DeleteDurationType", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="DurationTypeCode" value="@Model.DurationTypeCode" />
+
+
+        <div class="text-danger text-center">Are you sure you want to delete the selected Duration Type ?</div>
+        <p class="text-center text-bold" style="font-weight: bold">Duration Type</p>
+        <p class="text-center text-bold">@Model.Description</p>
+
+
+        <div align="center">
+
+            <input class="btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Delete" />
+            <input id="btnCancel" class="btn btn-danger enabledButton" name="submitButton" style="width: 80px;"
+                   type="submit" value="Cancel" />
+
+        </div>
+
+       
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("span.ui-dialog-title").text('DeleteDurationType ' );
+
+        $('#btnCancel').click(function () {
+           
+            window.location.href = '/Administration/DurationType';
+            return false;
+        });
+
+    });
+</script>

@@ -1,0 +1,165 @@
+﻿@model ADit.Interfaces.IApconApprovalTypePriceView
+@{
+    ViewBag.Title = "Edit Apcon Price";
+}
+
+@section PageTitle{
+    Update Apcon Approval Price
+}
+
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("EditApconPrice", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+       
+
+        <input type="hidden" id="DateCreated" name="DateCreated" value="@Model.DateCreated" />
+        <input type="hidden" id="ApconApprovalTypeId" name="ApconApprovalTypePriceId" value="@Model.ApconApprovalTypePriceId" />
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Material Type:
+                @Html.DropDownList("ApconApprovalTypeId", Model.ApconApprovalType, new { @class = "form-control", style = "width:204px;", id = "ApconApprovalTypePriceId" })
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Comment :
+                <input class="form-control" id="Amount" name="Comment" style="width: 204px;" type="text" maxlength="100" value="@Model.Comment" />
+            </div>
+
+
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Amount :
+                <input class="form-control" id="Amount" name="Amount" style="width: 204px;" type="text" maxlength="100" value="@Model.Amount.ToString("#")" />
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Date Effective :
+                <input class="form-control" id="Date Effective" name="EffectiveDate" style="width: 204px;" type="text" maxlength="100" value="@Model.EffectiveDate.ToString("d")" />
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-12  pt-3">
+
+            <div class="pl-3 row">
+                <div class="row">
+                    <div>
+
+
+                        <input type="submit" value="Submit" class="btn btn-primary" id="btnsubmit" name="submitButton" style="width: 80px; color:white" />
+
+                    </div>
+
+                    <div class="pl-4">
+                        <a href="/Administration/ApconPrice" class="btn btn-danger" id="btnCancel" name="submitButton" style="width: 80px;color:white">Cancel</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                You must enter all information above correctly to enable submission.
+            </div>
+
+        </div>
+
+    }
+</div>
+
+
+
+            @section JavaScriptsExecution
+{
+                <script type="text/javascript">
+
+                    $(document).ready(function () {
+
+                        $('#btnCancel').click(function () {
+                           
+
+                            window.location.href = '/Administration/ApconPrice';
+                            return false;
+
+                        });
+
+                        $("#ApconApprovalTypePriceId").change(function () {
+                            $("#Amount").trigger('propertychange');
+
+                        });
+
+
+
+                        $("#Comment").change(function () {
+
+                            $("#Amount").trigger('propertychange');
+                        });
+
+
+                        $("#EffectiveDate").change(function () {
+
+                            $("#Amount").trigger('propertychange');
+                        });
+
+
+                        $('#Amount').bind('input propertychange',
+                            function () {
+
+                                $('#btnSubmit').prop("class", "grayButton");
+                                //   $('#btnSubmit').prop("disabled", true);
+
+
+                                var effectiveDate = $("#EffectiveDate").val().length > 0;
+                                var dateInActive = $("#DateInactive").val().length > 0;
+                                var comment = $("#Comment").val().length > 0;
+                                var amount = $("#Amount").val().length > 0 && $("#Amount").val() > 0;
+                                var Administration = ($("#ApconApprovalTypePriceId").val() != -1);
+
+                                if ((comment && amount && branding && effectiveDate
+                                ) /*&& (comment )&& (amount)*/ /*&&(comment) && (amount)*/
+                                ) {
+                                    $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                                    $('#btnSubmit').prop("disabled", false);
+                                }
+                            });
+
+                    });
+                </script>
+
+            }
+
+
+            @section Stylesheets{
+                <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
+            }
+
+
+
+

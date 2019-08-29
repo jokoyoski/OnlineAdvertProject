@@ -1,0 +1,33 @@
+﻿@model ADit.Interfaces.IFulfilmentServiceSummaryView
+@if (Model.FulfilmentServiceSummaries.Any())
+{
+    <table style="width:100%" class="table-bordered">
+        <thead>
+            <tr>
+                <th width="50%">
+                    Service Type
+                </th>
+
+                <th width="50%">
+                    Total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var j in Model.FulfilmentServiceSummaries)
+            {
+                <tr>
+                    <td>
+                        @j.ServiceCodeDescription
+                    </td>
+
+                    <td>@j.OrderByServiceCodeCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-danger">No Pending Transaction in this Category</p>
+}

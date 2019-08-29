@@ -1,0 +1,121 @@
+﻿@model ADit.Interfaces.IfulfilmentPaymentListView
+
+
+
+@if (Model.ScriptingFulfilment.Count > 0 || Model.ProductionFulfilment.Count > 0)
+{
+    <div class="container-fluid">
+        <h3>
+            Scripting Payment
+        </h3>
+        @foreach (var order in Model.ScriptingFulfilment)
+        {
+            <div class="col-4" style="padding-bottom: 15px">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <p>You have a pending payment for the script for an order</p>
+                        <p>
+                            <strong>Order title : </strong> @order.OrderTitle
+                        </p>
+                        <p>
+                            <strong>Order Number : </strong> @order.OrderNumber
+                        </p>
+
+                        <p>
+                            <strong>Amount : @order.Price.ToString("#,##")</strong>
+                        </p>
+                        <p class="mb-5">
+
+
+
+
+                            @using (Html.BeginForm("FulfilmentPayment", "Fulfilment", FormMethod.Post, new {id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data"}))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <input type="text" hidden name="TotalAmount" value="@order.Price"/>
+                                <input type="text" hidden name="OrderId" value="@order.orderPaymentId"/>
+                                <input type="text" hidden name="paymentPurpose" value="FulfilmentScripting"/>
+
+                                <input type="submit" value="Make Payment" class="btn btn-primary"/>
+                            }
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+    if (Model.ProductionFulfilment.Count > 0)
+    {
+    <div class="container-fluid">
+
+
+        <h3>
+            Production Payment
+        </h3>
+
+        @foreach (var order in Model.ProductionFulfilment)
+        {
+            <div class="col-4" style="padding-bottom: 15px">
+                <div class="card">
+                    <div class="card-body">
+
+                        <p>You have a pending payment for the script for an order</p>
+                        <p>
+                            <strong>Order title : </strong> @order.OrderTitle
+                        </p>
+                        <p>
+                            <strong>Order Number : </strong> @order.OrderNumber
+                        </p>
+
+                        <p>
+                            <strong>Amount : @order.Price.ToString("#,##")</strong>
+                        </p>
+                        <p class="mb-5">
+
+
+                            @using (Html.BeginForm("PendingFulfilmentPayment", "Fulfilment", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <input type="text" hidden name="totalAmount" value="@order.Price" />
+                                <input type="text" hidden name="orderId" value="@order.orderPaymentId" />
+                                <input type="text" hidden name="paymentPurpose" value="FulfilmentProduction" />
+
+                                <input type="submit" value="Make Payment" class="btn btn-primary" />
+                            }
+                        </p>
+
+                    </div>
+                </div>
+                </div>
+                }
+
+
+            </div>
+        }
+        }
+        else
+        {
+    <div class="container-fluid mt-5">
+       
+        <p class="text-center">
+            @if (Model.procesingMessage != null)
+            {
+                <span class="alert alert-success">@Model.procesingMessage</span>
+
+
+            }
+        </p>
+        <p class="text-center">
+           
+            <strong>You have no pending Order</strong>
+        </p>
+    </div>
+
+
+        }

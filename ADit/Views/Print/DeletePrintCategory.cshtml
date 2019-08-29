@@ -1,0 +1,72 @@
+﻿
+
+@model ADit.Interfaces.IPrintCategoryView
+
+
+
+@section PageTitle{
+    Delete Print Category
+}
+
+
+<a href="/Print/PrintCategory?printCategoryId=@Model.PrintCategoryId"> All PrintCategories</a>
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("DeletePrintCategory", "Print", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <input type="hidden" name="PrintCategoryId" value="@Model.PrintCategoryId" />
+
+
+        <div class="" align="center">
+            <div class="data column" style="overflow: hidden;">
+                Delete Print Category Entry: @Model.Description?
+
+            </div>
+            <input id="Description" name="Description" style="width: 250px;" type="hidden" maxlength="50" value="@Model.Description" />
+        </div>
+        @*<div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    <span class="required">*</span>Description:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    Delete Print Category Entry: @Model.Description?
+
+                </div>
+            </div>*@
+
+        <div align="center">
+
+            <input class="btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Delete" />
+            <input id="btnCancel" class="btn btn-danger enabledButton" name="submitButton" style="width: 80px;"
+                   type="submit" value="Cancel" />
+
+        </div>
+
+    }
+</div>
+
+<script>
+    $('#btnCancel').click(function () {
+        window.location.href = '/Print/PrintCategory';
+        return false;
+    });
+
+</script>
+
+@*<script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#btnSubmit').prop("class", "enabledButton");
+                        $('#btnSubmit').prop("disabled", false);
+
+        });*@
+@*</script>*@

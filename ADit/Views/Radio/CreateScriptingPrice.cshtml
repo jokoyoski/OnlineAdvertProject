@@ -1,0 +1,174 @@
+﻿@model ADit.Interfaces.IMaterialScriptingPriceView
+@{
+    ViewBag.Title = "Save Scripting Price";
+}
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h4 class="">Create Script Price</h4><br>
+<div class="jumbotron container">
+    @using (Html.BeginForm("CreateScriptingPrice", "Radio", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        if (!string.IsNullOrEmpty(Model.ProcessingMessage))
+        {
+            <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+                <div class="validation-summary-errors">
+                    @Model.ProcessingMessage
+                    @Html.ValidationSummary()
+                </div>
+            </div>
+        }
+
+        <div class="form-horizontal">
+
+
+            <div class="form-group">
+                <div class="label column">
+                    <span style="color:red;">*</span>Material Type:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    @Html.DropDownList("MaterialTypeId", Model.MaterialType, new { @class="form-control", style = "width:204px;", id = "MaterialTypeId"})
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="label column">
+                    <span style="color:red;">*</span> Service Type:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    @Html.DropDownList("ServiceTypeCode", Model.ServiceType, new { @class="form-control", style = "width:204px;", id = "ServiceTypeCode"})
+                </div>
+            </div>
+
+
+            <div class="formgroup">
+                <div class="label column">
+                    <span style="color:red;">*</span>Enter the amount:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="Amount" name="Amount" class="form-control" type="text" maxlength="100" value="@Model.Amount"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="label column">
+                    <span style="color:red;">*</span>Enter the comment:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="Comment" name="Comment" class="form-control" type="text" maxlength="100" value="@Model.Comment"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label column">
+                    <span style="color:red;">*</span>Enter Effective date:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="EffectiveDate" name="EffectiveDate" class="form-control" type="date" maxlength="100" value="@Model.EffectiveDate"/>
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                <div class="label column">
+                    <span style="color:red;">*</span>Enter Date Inactive:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="DateInactive" name="DateInactive" class="form-control" type="date" maxlength="100" value="@Model.DateInactive" />
+                </div>
+            </div>*@
+
+            <div class="row">
+                <div class="form-group pl-3">
+                    <input class="grayButton btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" disabled type="submit" value="Submit"/>
+                </div>
+                <div class="form-group ml-2">
+                    <input id="btnCancel" class="enabledButton btn btn-danger" name="submitButton" style="width: 80px;"
+                           type="submit" value="Cancel"/>
+                </div>
+                <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+                    You must enter all information above correctly to enable submission.
+                </div>
+            </div>
+
+            @Html.ValidationSummary()
+
+
+        </div>
+    }
+</div>
+
+@section JavaScriptsIncludes
+{
+    <script src="/Scripts/jquery-ui-1.12.1.js" type="text/javascript"></script>
+}
+
+@section JavaScriptsExecution
+{
+    <script type="text/javascript">
+
+
+        $("#MaterialTypeId").change(function() {
+            $("#Amount").trigger('propertychange');
+
+        })
+
+        $("#ServiceTypeCode").change(function() {
+            $("#Amount").trigger('propertychange');
+
+        })
+
+        $(document).ready(function() {
+
+            $('#btnCancel').click(function() {
+                window.location.href = '/Radio/ScriptingPrice';
+                return false;
+            });
+
+
+            //$("#DateInactive").change(function() {
+
+            //    $("#Amount").trigger('propertychange');
+            //});
+
+            $("#EffectiveDate").change(function() {
+
+                $("#Amount").trigger('propertychange');
+            });
+
+
+            $("#Comment").change(function() {
+
+                $("#Amount").trigger('propertychange');
+            });
+
+            $('#Amount').bind('input propertychange',
+                function() {
+
+                    $('#btnSubmit').prop("class", "grayButton");
+                    $('#btnSubmit').prop("disabled", true);
+
+
+                   // var dateInActive = $("#DateInactive").val().length > 0;
+                    var dateeffective = $("#EffectiveDate").val().length > 0;
+                    var comment = $("#Comment").val().length > 0;
+                    var amount = $("#Amount").val().length > 0 && $("#Amount").val() > 0;
+                    var branding = ($("#MaterialTypeId").val() !== -1);
+
+                    var service = ($("#ServiceTypeCode").val() !== -1);
+                    if (( comment && amount && branding && service && dateeffective
+                        ) /*&& (comment )&& (amount)*/ /*&&(comment) && (amount)*/
+                    ) {
+                        $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                        $('#btnSubmit').prop("disabled", false);
+                    }
+                });
+
+        });
+    </script>
+}

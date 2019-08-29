@@ -1,0 +1,189 @@
+﻿
+<h2>Edit PrintService Type</h2>
+@model ADit.Interfaces.IPrintServiceTypePriceView
+
+@{
+    ViewBag.Title = "Edit Print Service Type";
+}
+
+@section PageTitle{
+    Edit Print Service Type
+}
+
+
+<a href="/Print/PrintServiceTypePrice?printServiceTypePriceId=@Model.PrintServiceTypePriceId"> All Print Service Types</a>
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("EditPrintServiceTypePrice", "Print", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <input type="hidden" name="PrintServiceTypePriceId" value="@Model.PrintServiceTypePriceId" />
+
+        <input type="hidden" name="DateCreated" value="@Model.DateCreated" />
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column">
+                <span class="required">*</span> Newspaper Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("NewsPaperId", Model.PrintNewsPaperCollection, new { @class = "form-control", style = "width:204px;", id = "NewsPaperId" })
+            </div>
+        </div>
+
+
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column">
+                <span class="required">*</span> Service Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("PrintServiceTypeId", Model.PrintServiceTypeCollection, new { @class = "form-control", style = "width:204px;", id = "PrintServiceTypeId" })
+            </div>
+        </div>
+      
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span class="required">*</span> Service Color:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("PrintServiceColorId", Model.PrintServiceColorCollection, new { @class = "form-control", style = "width:204px;", id = "PrintServiceColorId" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span class="required">*</span> Print Media Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("PrintMediaTypeId", Model.PrintMediaTypeCollection, new { @class = "form-control", style = "width:204px;", id = "PrintServiceColorId" })
+            </div>
+        </div>
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column">
+                <span class="required">*</span>Amount:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input class="form-control" id="amount" name="amount" style="width: 250px;" type="text" maxlength="50" value="@Model.Amount.ToString("#")" />
+            </div>
+        </div>
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column">
+                <span class="required">*</span>Description:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input class="form-control" id="comment" name="comment" style="width: 250px;" type="text" maxlength="50" value="@Model.Comment" />
+            </div>
+        </div>
+
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column">
+                <span class="required">*</span>Date Effective:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input class="form-control" id="EffectiveDate" name="EffectiveDate" style="width: 204px;" type="text" maxlength="100" value="@Model.EffectiveDate.ToString("d")" />
+            </div>
+        </div>
+
+        @*<div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column">
+                    <span class="required">*</span>Date Inactive:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input class="form-control" id="dateInactive" name="dateInactive" style="width: 250px;" type="text" maxlength="50" value="@DisplayHelper.DisplayDate(Model.DateInactive)" />
+                </div>
+            </div>*@
+
+        <p></p>
+
+        <div class="form-group form-inline ">
+            <div class="column" style="margin-left: 195px;">
+                <input class="enabledButton btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Submit" />
+            </div>
+            <div class="column" style="margin-left: 15px;">
+                <input id="btnCancel" class="enabledButton btn btn-danger" name="submitButton" style="width: 80px;"
+                       type="submit" value="Cancel" />
+            </div>
+            <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+      $(document).ready(function () {
+
+          $('#btnCancel').click(function () {
+              window.location.href = '/Print/PrintServiceTypePrice'
+              return false;
+          });
+          $("#PrintServiceTypeId").change(function () {
+              $("#comment").trigger('propertychange');
+
+          })
+
+          $("#PrintMediaTypeId").change(function () {
+              $("#comment").trigger('propertychange');
+
+          })
+
+
+          $("#amount").change(function () {
+              $("#comment").trigger('propertychange');
+
+          })
+
+          $("#NewsPaperId").change(function () {
+              $("#comment").trigger('propertychange');
+
+          })
+          //$("#dateInactive").change(function () {
+          //    $("#comment").trigger('propertychange');
+
+          //})
+          $("#EffectiveDate").change(function () {
+              $("#comment").trigger('propertychange');
+
+          })
+          
+
+          $('#comment').bind('input propertychange',
+              function () {
+
+                  $('#btnSubmit').prop("class", "grayButton");
+                  $('#btnSubmit').prop("disabled", true);
+
+                  var description = $('#comment').val().length > 0;
+                  var printservicetype = $("#PrintServiceTypeId").val() != -1;
+                  var printMediatype = $("#PrintMediaTypeId").val() != -1;
+                  var newspaper = ($("#NewsPaperId").val() != -1);
+                  var amount = $("#amount").val().length > 0;
+                //  var dateIn = $("#dateInactive").val().length > 0;
+                  var dateEf = $("#EffectiveDate").val().length > 0;
+
+                  if ((description && printservicetype && newspaper && amount && dateEf && printMediatype)
+                  ) {
+                      $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                      $('#btnSubmit').prop("disabled", false);
+                  }
+              });
+
+      });
+</script>
+

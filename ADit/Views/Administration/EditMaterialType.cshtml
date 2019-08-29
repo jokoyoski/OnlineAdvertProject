@@ -1,0 +1,90 @@
+﻿@model ADit.Interfaces.IMaterialTypeView
+
+
+@section PageTitle{
+    Edit Material Type
+}
+
+
+
+
+<div class="jumbotron container">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("EditMaterialType", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="MaterialTypeId" name="MaterialTypeId" value="@Model.MaterialTypeId" />
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Description:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="Description" name="Description" class="form-control" type="text" maxlength="50" value="@Model.Description" />
+            </div>
+        </div>
+
+
+        <div class="col-12  pt-3">
+
+            <div class="pl-3 row">
+                <div class="row">
+                    <div>
+                        <a href="/Administration/ApconPrice" class="btn btn-primary" id="btnsubmit" name="submitButton" style="width: 80px; color:white">Submit</a>
+
+                    </div>
+
+                    <div class="pl-4">
+                        <a href="/Administration/ApconPrice" class="btn btn-danger" id="btnCancel" name="submitButton" style="width: 80px;color:white">Cancel</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                You must enter all information above correctly to enable submission.
+            </div>
+
+        </div>
+    }
+</div>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#btnCancel').click(function () {
+                window.location.href = '/Administration/MaterialType';
+                return false;
+            });
+
+            $('#Description').bind('input propertychange',
+                function () {
+
+                    $('#btnSubmit').prop("class", "grayButton");
+                    $('#btnSubmit').prop("disabled", true);
+
+                    var description = $('#Description').val().length > 0;
+
+
+                    if ((description)
+                    ) {
+                        $('#btnSubmit').prop("class", "enabledButton");
+                        $('#btnSubmit').prop("disabled", false);
+                    }
+                });
+
+
+        });
+    </script>
+

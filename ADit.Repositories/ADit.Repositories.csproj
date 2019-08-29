@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{45C42C18-F0A9-412E-857D-06BA29934A42}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ADit.Repositories</RootNamespace>
+    <AssemblyName>ADit.Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AA.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\AA.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PayStack.Net, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Paystack.Net.0.7.1\lib\netstandard2.0\PayStack.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\ActionLog.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Adit.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Adit.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Adit.Context.Partial.cs" />
+    <Compile Include="DataAccess\Adit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Adit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Adit.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\ApconApprovalType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\ApconApprovalTypePrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\AppActivityLog.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\AppRole.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\ArtWorkPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingDesignElement.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingDesignElementPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingMaterial.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingMaterialPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingTransaction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingTransactionAttachment.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingTransactionColor.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingTransactionDesignElement.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\BrandingTransactionMaterial.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Color.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Contact.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\DesignElement.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\DesignElementPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\DigitalFile.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\DigitalType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\DurationType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\FulfilmentPaymentStatu.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\FulfilmentProductionPayment.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\FulfilmentScriptingPayment.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\FulfilmentStatu.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\FulfilmentStatusRule.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\MaterialProductionPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\MaterialScriptingPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\MaterialType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\MaterialTypeTiming.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\NewsPaper.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineDuration.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineExtraService.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineExtraServicePrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlinePackagesDurationPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlinePlatform.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlinePlatformPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlinePurpose.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineTransaction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineTransactionAiring.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineTransactionAttachment.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OnlineTransactionExtraService.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Order.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OrderFulfilment.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OrderFulfilmentActivity.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OrderFulfilmentActivityDocument.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OrderHistory.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\OrderStatu.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Payment.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintCategory.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintMediaType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintProduction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintServiceColor.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintServiceType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintServiceTypePrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintTransaction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintTransactionAiring.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintTransactionColor.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PrintTransactionPublish.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioProduction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioScripterScriptingDetail.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioScriptingDetail.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioServicePrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioStation.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioTransaction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioTransactionAiring.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\RadioUserScriptingDetail.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Scripter.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\ScriptMaterialQuestion.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\ServiceType.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TimeBelt.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Timing.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TransactionStatu.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TvScriptingDetail.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TvServicesPrice.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TVStation.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TVTransaction.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TVTransactionAiring.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\UserActivationCode.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\UserAppRole.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\UserRegistration.cs">
+      <DependentUpon>Adit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\DbContextFactory.cs" />
+    <Compile Include="Models\ApconApprovalTypeModel.cs" />
+    <Compile Include="Models\ApconApprovalTypePriceModel.cs" />
+    <Compile Include="Models\ArtworkPriceModel.cs" />
+    <Compile Include="Models\BrandingAttachmentTransactionModel.cs" />
+    <Compile Include="Models\BrandingMaterialModel.cs" />
+    <Compile Include="Models\BrandingMaterialPriceModel.cs" />
+    <Compile Include="Models\BrandingTransactionAttachmentModel.cs" />
+    <Compile Include="Models\BrandingTransactionColorModel.cs" />
+    <Compile Include="Models\BrandingTransactionDesignElementModel.cs" />
+    <Compile Include="Models\BrandingTransactionMaterialModel.cs" />
+    <Compile Include="Models\BrandingTransactionModel.cs" />
+    <Compile Include="Models\FulfilmentPaymentModel.cs" />
+    <Compile Include="Models\FulfilmentServiceSummaryModel.cs" />
+    <Compile Include="Models\FulfilmentStatusRuleModel.cs" />
+    <Compile Include="Models\FulfilmentStatusSummaryModel.cs" />
+    <Compile Include="Models\OnlineTransactionAiringUI.cs" />
+    <Compile Include="Models\OnlineTransactionUI.cs" />
+    <Compile Include="Models\OrderFulfilmentActivityDocumentModel.cs" />
+    <Compile Include="Models\OrderFulfilmentActivityModel.cs" />
+    <Compile Include="Models\OrderFulfilmentModel.cs" />
+    <Compile Include="Models\OrderFulfilmentStatusModel.cs" />
+    <Compile Include="Models\PrintMediaTypeModel.cs" />
+    <Compile Include="Models\PrintServiceColorModel.cs" />
+    <Compile Include="Models\PrintTransactionAiringUIModel.cs" />
+    <Compile Include="Models\RadioTransactionAiringUI.cs" />
+    <Compile Include="Models\RadioTransactionUI.cs" />
+    <Compile Include="Models\ColorModel.cs" />
+    <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\DesignElementModel.cs" />
+    <Compile Include="Models\DesignElementPriceModel.cs" />
+    <Compile Include="Models\DigitaFileModel.cs" />
+    <Compile Include="Models\DigitalFileModel.cs" />
+    <Compile Include="Models\DigitalTypeModel.cs" />
+    <Compile Include="Models\DurationTypeModel.cs" />
+    <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\MessageTableModel.cs" />
+    <Compile Include="Models\OnlineArtworkTransactionModel.cs" />
+    <Compile Include="Models\OnlineDurationModel.cs" />
+    <Compile Include="Models\OnlinePackagesDurationPriceModel.cs" />
+    <Compile Include="Models\OnlineTransactionAiringModel.cs" />
+    <Compile Include="Models\PrintScriptingTransactionModel.cs" />
+    <Compile Include="Models\RadioMaterialTransactionModel.cs" />
+    <Compile Include="Models\RadioProductionModel.cs" />
+    <Compile Include="Models\MaterialProductionPriceModel.cs" />
+    <Compile Include="Models\MaterialScriptingModel.cs" />
+    <Compile Include="Models\MaterialScriptingPriceModel.cs" />
+    <Compile Include="Models\MaterialTypeModel.cs" />
+    <Compile Include="Models\MaterialTypeTimingDetail.cs" />
+    <Compile Include="Models\MaterialTypeTimingModel.cs" />
+    <Compile Include="Models\NewsPaperModel.cs" />
+    <Compile Include="Models\OnlineArtworkPriceModel.cs" />
+    <Compile Include="Models\OnlineExtraServiceModel.cs" />
+    <Compile Include="Models\OnlineExtraServicePriceModel.cs" />
+    <Compile Include="Models\OnlinePlatformModel.cs" />
+    <Compile Include="Models\OnlinePlatformPriceModel.cs" />
+    <Compile Include="Models\OnlinePurposeModel.cs" />
+    <Compile Include="Models\OnlineTransactionAttachmentModel.cs" />
+    <Compile Include="Models\OnlineTransactionExtraServiceModel.cs" />
+    <Compile Include="Models\OnlineTransactionModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\OrderStatuModel.cs" />
+    <Compile Include="Models\PrintCategoryModel.cs" />
+    <Compile Include="Models\PrintMediaModelDetail.cs" />
+    <Compile Include="Models\PrintServiceTypeModel.cs" />
+    <Compile Include="Models\PrintServiceTypePriceModel.cs" />
+    <Compile Include="Models\PrintTransactionAiringModel.cs" />
+    <Compile Include="Models\PrintTransactionColorModel.cs" />
+    <Compile Include="Models\PrintTransactionModel.cs" />
+    <Compile Include="Models\PrintTransactionPublishModel.cs" />
+    <Compile Include="Models\RadioOrder.cs" />
+    <Compile Include="Models\RadioScriptTransactionModel.cs" />
+    <Compile Include="Models\RadioServicePriceListModel.cs" />
+    <Compile Include="Models\RadioStationModel.cs" />
+    <Compile Include="Models\RadioTransactionAiringModel.cs" />
+    <Compile Include="Models\RadioTransactionModel.cs" />
+    <Compile Include="Models\RegistrationRepModel.cs" />
+    <Compile Include="Models\RepliesModel.cs" />
+    <Compile Include="Models\ScriptMaterialQuestionModel.cs" />
+    <Compile Include="Models\SendMailScriptModel.cs" />
+    <Compile Include="Models\SericeTypeModel.cs" />
+    <Compile Include="Models\TimeBeltModel.cs" />
+    <Compile Include="Models\TimingModel.cs" />
+    <Compile Include="Models\TvAiringTransactionUIModel.cs" />
+    <Compile Include="Models\TvMaterialTransactionModel.cs" />
+    <Compile Include="Models\TvOrder.cs" />
+    <Compile Include="Models\TvOrderModel.cs" />
+    <Compile Include="Models\TvScriptingTransactionModel.cs" />
+    <Compile Include="Models\TvServicesPriceListModel.cs" />
+    <Compile Include="Models\TvStationModel.cs" />
+    <Compile Include="Models\TvTransactionAiringModel.cs" />
+    <Compile Include="Models\TvTransactionModel.cs" />
+    <Compile Include="Models\TvTransactionScriptingModel.cs" />
+    <Compile Include="Models\UserActivationCodeModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserRolesModel.cs" />
+    <Compile Include="Models\YesNoQuestionModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\AccountQueries.cs" />
+    <Compile Include="Queries\BrandingQueries.cs" />
+    <Compile Include="Queries\DigitalFileQueries.cs" />
+    <Compile Include="Queries\FulfilmentQueries.cs" />
+    <Compile Include="Queries\LookupQueries.cs" />
+    <Compile Include="Queries\OnlineQueries.cs" />
+    <Compile Include="Queries\OrderQueries.cs" />
+    <Compile Include="Queries\PrintQueries.cs" />
+    <Compile Include="Queries\RadioQueries.cs" />
+    <Compile Include="Queries\TvQueries.cs" />
+    <Compile Include="Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AccountRepository.cs" />
+    <Compile Include="Services\BrandingRepository.cs" />
+    <Compile Include="Services\DigitalFileRepository.cs" />
+    <Compile Include="Services\FulfilmentRepository.cs" />
+    <Compile Include="Services\GeneralRepository.cs" />
+    <Compile Include="Services\LookupRepository.cs" />
+    <Compile Include="Services\OnlineRepository.cs" />
+    <Compile Include="Services\OrderRepository.cs" />
+    <Compile Include="Services\PrintRepository.cs" />
+    <Compile Include="Services\RadioRepository.cs" />
+    <Compile Include="Models\ScriptingDetailModel.cs" />
+    <Compile Include="Services\ScriptingRepository.cs" />
+    <Compile Include="Services\TvRepostiory.cs" />
+    <Compile Include="Models\TvStation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DataAccess\Adit.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Adit.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataAccess\Adit.edmx.diagram">
+      <DependentUpon>Adit.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ADit.Interfaces\ADit.Interfaces.csproj">
+      <Project>{3564823a-6baf-409c-a1fb-d9f564a32d2c}</Project>
+      <Name>ADit.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataAccess\Adit.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Adit.edmx</DependentUpon>
+      <LastGenOutput>Adit.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataAccess\Adit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Adit.edmx</DependentUpon>
+      <LastGenOutput>Adit.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,51 @@
+﻿@model ADit.Interfaces.IOrderListView
+@{
+    var sn = 0;
+}
+
+@section PageTitle{
+    Order History
+}
+
+<div class="container ">
+
+    @if (Model.Orders.Any())
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th>S/N</th>
+                <th>Order Number</th>
+                <th>Status</th>
+                <th>DateCreated</th>
+                <th>Manage Services</th>
+            </tr>
+
+            @foreach (var order in Model.Orders)
+            {
+                sn++;
+
+                <tr class="info">
+                    <td>@sn</td>
+                    <td>@order.OrderNumber</td>
+                    <td>
+                       
+                            <p class="text-primary">
+                                <strong>@order.OrderStatus</strong>
+                            </p>
+                       
+                    </td>
+                    <td>@order.DateCreated</td>
+                    <td>
+                        <a href="/Order/Summary?orderId=@order.OrderId" class="btn btn-danger">Manage Order</a>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">You do not have any orders</div>
+    }
+</div>

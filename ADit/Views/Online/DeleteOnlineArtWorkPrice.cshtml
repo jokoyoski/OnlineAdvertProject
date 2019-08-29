@@ -1,0 +1,58 @@
+﻿@model ADit.Interfaces.IOnlineArtworkPriceView
+
+
+
+
+    @section PageTitle{
+        Delete Online ArtWork Price
+    }
+
+
+
+
+
+
+    <div class="jumbotron">
+        <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+            <div class="validation-summary-errors">
+                @Html.ValidationSummary()
+                @Model.ProcessingMessage
+            </div>
+        </div>
+        @using (Html.BeginForm("DeleteOnlineArtWorkPrice", "Online", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="onlineArtWorkPriceId" value="@Model.ArtWorkPriceId" />
+
+
+            <div class="text-danger text-center">Are you sure you want to delete the selected Online ArtWork Price ?</div>
+            <p class="text-center text-bold" style="font-weight: bold">Online ArtWork Price</p>
+            <p class="text-center text-bold">@Model.Amount</p>
+
+
+
+
+
+            <div class="" align="center">
+                <input class="grayButton btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Delete" />
+                <input id="btnCancel" class="btn btn-danger enabledButton" name="submitButton" style="width: 80px;"
+                       type="submit" value="Cancel" />
+
+            </div>
+
+
+        }
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("span.ui-dialog-title").text('Delete MaterialType' );
+
+        $('#btnCancel').click(function () {
+            window.location.href = '/Online/OnlineArtWorkPrice';
+            return false;
+        });
+
+    });
+    </script>

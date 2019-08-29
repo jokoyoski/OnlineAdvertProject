@@ -1,0 +1,156 @@
+﻿@using ADit.Interfaces
+@using ADit.Interfaces.ValueTypes
+@helper YesOrNo(bool value)
+{
+    /**/
+    @(value ? "Yes" : "No")
+}
+
+@helper Checked(bool isChecked)
+{
+    /**/
+    @(isChecked ? "checked" : "")
+}
+
+@helper IsDisabled(bool isDisabled)
+{
+    /**/
+    @(isDisabled ? "disabled = 'disabled'" : "")
+}
+
+
+@helper DisplayDate(DateTime? date)
+{
+    /**/
+    @(date?.ToString("yyyy-MM-dd") ?? "")
+}
+
+@helper DisplayInt(int intValue)
+{
+    /**/
+    @(intValue < 1 ? "" : intValue.ToString())
+}
+@helper TablePager(int count = 0)
+{
+    /**/
+
+    var isDisplayPage = count > 10 ? "" : "display:none;";
+    <div id="pager" class="pager" style="@isDisplayPage">
+        <img src="/Content/tablesorter/icons/first.png" class="first" alt="first" />
+        <img src="/Content/tablesorter/icons/prev.png" class="prev" alt="prev" />
+        <input type="text" class="pagedisplay" />
+        <img src="/Content/tablesorter/icons/next.png" class="next" alt="next" />
+        <img src="/Content/tablesorter/icons/last.png" class="last" alt="last" />
+        <select class="pagesize">
+            <option selected="selected" value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+}
+@helper GetScriptingUrl(IOrderFulfilment order)
+{
+    var theClass = string.Empty;
+    if (order.FufilmentStatusCode != FulfilmentStatus.Scripting)
+    {
+        theClass = "popupUrl";
+    }
+
+    var theTitle = "Process Scripting";
+    if (order.FufilmentStatusCode == FulfilmentStatus.ScriptingCustomerApproval)
+    {
+        theTitle = "Send Approval Reminder Message";
+    }
+    else if (order.FufilmentStatusCode == FulfilmentStatus.ScriptingCustomerReview)
+    {
+        theTitle = "Send Review Reminder Message";
+    }
+    else if (order.FufilmentStatusCode == FulfilmentStatus.ScriptingPaymentPending)
+    {
+        theTitle = "Send Scripting Payment Reminder Message";
+    }
+
+    string theUrl;
+    switch (order.ServiceCode)
+    {
+       case ServiceType.Branding:
+            theUrl =  $"/Scripting/ScriptBrandingOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.Online:
+            theUrl =  $"/Scripting/ScriptOnlineOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.PrintMedia:
+            theUrl =  $"/Scripting/ScriptPrintOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.Radio:
+            theUrl =  $"/Scripting/ScriptRadioOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.Television:
+            theUrl =  $"/Scripting/ScriptTVOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        default:
+            theUrl =  $"/Scripting/ScriptRadioOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+    }
+
+    if (order.FufilmentStatusCode != FulfilmentStatus.Scripting)
+    {
+        theUrl = $"/Scripting/SendScriptingMessage?orderFulfilmentId={order.OrderFulfilmentId}";
+    }
+
+    <a class="@theClass btn btn-success" href="@theUrl">@theTitle</a>
+}
+
+@helper GetProductionUrl(IOrderFulfilment order)
+{
+    var theClass = string.Empty;
+    if (order.FufilmentStatusCode != FulfilmentStatus.Production)
+    {
+        theClass = "popupUrl";
+    }
+
+    var theTitle = "Process Production";
+    if (order.FufilmentStatusCode == FulfilmentStatus.ProductionCustomerApproval)
+    {
+        theTitle = "Send Approval Reminder Message";
+    }
+    else if (order.FufilmentStatusCode == FulfilmentStatus.ProductionCustomerReview)
+    {
+        theTitle = "Send Review Reminder Message";
+    }
+    else if (order.FufilmentStatusCode == FulfilmentStatus.ProductionPaymentPending)
+    {
+        theTitle = "Send Production Payment Reminder Message";
+    }
+
+    string theUrl;
+    switch (order.ServiceCode)
+    {
+        case ServiceType.Branding:
+            theUrl =  $"/Production/ProduceBrandingOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.Online:
+            theUrl =  $"/Production/ProduceOnlineOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.PrintMedia:
+            theUrl =  $"/Production/ProducePrintOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.Radio:
+            theUrl =  $"/Production/ProduceRadioOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        case ServiceType.Television:
+            theUrl =  $"/Production/ProduceTVOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+        default:
+            theUrl =  $"/Production/ProduceRadioOrder?orderFulfilmentId={order.OrderFulfilmentId}";
+            break;
+    }
+
+    if (order.FufilmentStatusCode != FulfilmentStatus.Production)
+    {
+        theUrl = $"/Production/SendProductionMessage?orderFulfilmentId={order.OrderFulfilmentId}";
+    }
+
+    <a class="@theClass btn btn-success" href="@theUrl">@theTitle</a>
+}

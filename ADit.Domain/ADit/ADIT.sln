@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADit", "ADit\ADit.csproj", "{14DFF833-0B6B-4892-B73D-C2C421E6DDFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADit.Domain", "ADit.Domain\ADit.Domain.csproj", "{F70CB5D0-6967-4D62-8CE5-1791708558B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADit.Interfaces", "ADit.Interfaces\ADit.Interfaces.csproj", "{3564823A-6BAF-409C-A1FB-D9F564A32D2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADit.Repositories", "ADit.Repositories\ADit.Repositories.csproj", "{45C42C18-F0A9-412E-857D-06BA29934A42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADit.Tests", "ADit.Tests\ADit.Tests.csproj", "{F8154DE6-B90E-42A5-8FF9-4024FFDDE1E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{0CA9D81B-71B3-44E3-AAF8-17008511C42E}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\AA.Infrastructure.dll = Dependencies\AA.Infrastructure.dll
+		Dependencies\AA.Infrastructure.pdb = Dependencies\AA.Infrastructure.pdb
+		Dependencies\SendGrid.dll = Dependencies\SendGrid.dll
+		Dependencies\SendGrid.pdb = Dependencies\SendGrid.pdb
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14DFF833-0B6B-4892-B73D-C2C421E6DDFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DFF833-0B6B-4892-B73D-C2C421E6DDFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DFF833-0B6B-4892-B73D-C2C421E6DDFB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DFF833-0B6B-4892-B73D-C2C421E6DDFB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F70CB5D0-6967-4D62-8CE5-1791708558B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70CB5D0-6967-4D62-8CE5-1791708558B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70CB5D0-6967-4D62-8CE5-1791708558B3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70CB5D0-6967-4D62-8CE5-1791708558B3}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{3564823A-6BAF-409C-A1FB-D9F564A32D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3564823A-6BAF-409C-A1FB-D9F564A32D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3564823A-6BAF-409C-A1FB-D9F564A32D2C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{3564823A-6BAF-409C-A1FB-D9F564A32D2C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{45C42C18-F0A9-412E-857D-06BA29934A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C42C18-F0A9-412E-857D-06BA29934A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C42C18-F0A9-412E-857D-06BA29934A42}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C42C18-F0A9-412E-857D-06BA29934A42}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F8154DE6-B90E-42A5-8FF9-4024FFDDE1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8154DE6-B90E-42A5-8FF9-4024FFDDE1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8154DE6-B90E-42A5-8FF9-4024FFDDE1E9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8154DE6-B90E-42A5-8FF9-4024FFDDE1E9}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BD89F4E-148F-4660-9286-4CF62386FB56}
+	EndGlobalSection
+EndGlobal

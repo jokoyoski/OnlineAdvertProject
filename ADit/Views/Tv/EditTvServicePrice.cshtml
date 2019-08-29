@@ -1,0 +1,180 @@
+﻿@model ADit.Interfaces.ITVServicePricesListView
+@{
+    ViewBag.Title = "Add tv Service Price";
+}
+
+<div class="jumbotron container">
+    @using (Html.BeginForm("EditTvServicePrice", "Tv", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        if (!string.IsNullOrEmpty(Model.processingMessage))
+        {
+            @*<div>
+                    <input type="hidden" id="nomenu" />
+                </div>*@
+            <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+                <div class="validation-summary-errors">
+                    @Model.processingMessage
+
+                </div>
+            </div>
+        }
+
+        <h4>Edit Tv Service List</h4>
+        <hr />
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Apcon Approval Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("TvStationId", Model.tvCollection, new { @class = "form-control", style = "width:204px;", id = "TvStationId" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Enter the Timing:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("TimingId", Model.TimingCollection, new { @class = "form-control", style = "width:204px;", id = "TimingId" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Enter the Material Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("MaterialTypeId", Model.MaterialType, new { @class = "form-control", style = "width:204px;", id = "TimingId" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Enter the TimingBelts:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("TimingBeltId", Model.timeBeltCollection, new { @class = "form-control", style = "width:204px;", id = "TimingId" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Enter the Amount:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="Amount" name="Amount" class="form-control" style="width: 280px;" type="text" maxlength="100" value="@Model.Amount" />
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Enter Effective Date:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="EffectiveDate" class="form-control" name="DateEffective" style="width: 280px;" type="date" maxlength="100" value="@Model.DateEffective" />
+            </div>
+        </div>
+
+
+
+        <input type="text" hidden name="TvServicesPriceListId" value="@Model.TvServicesPriceListId" />
+        @*<div class="form-group">
+                <div class="label column">
+                    <span style="color:red;">*</span>Enter Date Inactive:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="DateInActive" class="form-control" name="DateInActive" style="width: 280px;" type="date" maxlength="100" value="@Model.DateInActive" />
+                </div>
+            </div>*@
+
+
+        <div class="row">
+            <div class="form-group ml-3">
+                <input class="btn enabledButton" id="btnSubmit" name="submitButton" type="submit" value="Submit" />
+            </div>
+            <div class="form-group ml-3">
+                <input id="btnCancel" class="btn btn-light" name="submitButton"
+                       type="submit" value="Cancel" />
+            </div>
+            <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+                You must enter all information above correctly to enable submission.
+            </div>
+        </div>
+        @Html.ValidationSummary()
+
+
+    }
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#btnCancel').click(function () {
+            window.location.href = '/Administration/RadioService';
+            return false;
+        });
+
+
+        $('#TvStationId').change(function () {
+
+            $('#Amount').trigger("propertychange");
+        });
+        $('#EffectiveDate').change(function () {
+
+            $('#Amount').trigger("propertychange");
+        });
+        //$('#DateInActive').change(function () {
+
+        //    $('#Amount').trigger("propertychange");
+        //});
+        $('#TimingId').change(function () {
+
+            $('#Amount').trigger("propertychange");
+        });
+        $('#MaterialTypeId').change(function () {
+
+            $('#Amount').trigger("propertychange");
+        });
+
+        $('#Amount').bind('input propertychange',
+            function () {
+
+                $('#btnSubmit').prop("class", "grayButton");
+                $('#btnSubmit').prop("disabled", true);
+
+                //var dateInActive = $("#DateInActive").val().length > 0;
+                var dateEffect = $("#EffectiveDate").val().length > 0;
+
+                var amount = $("#Amount").val().length > 0;
+                var tv = ($("#TvStationId").val() != -1);
+                var timing = ($("#TimingId").val() != -1);
+                var material = ($("#MaterialTypeId").val() != -1);
+
+                if ((dateEffect)  && (amount) && (tv) && (timing) && (material)
+                ) {
+                    $('#btnSubmit').prop("class", "enabledButton");
+                    
+                    $('#btnSubmit').prop("disabled", false);
+                }
+            });
+
+    });
+</script>
+
+
+
+
+
+
+
+

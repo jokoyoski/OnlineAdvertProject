@@ -1,0 +1,151 @@
+﻿@model ADit.Interfaces.IRadioServicePriceList
+@{
+    ViewBag.Title = "Edit Radio Service Price";
+}
+
+<div class="jumbotron container">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessages
+        </div>
+    </div>
+    @using (Html.BeginForm("EditRadioService", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Radio Station Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("RadioId", Model.RadioStationType, new { @class="form-control", style = "width:204px;", id = "RadioId" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Timing Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("TimingId", Model.TimingType, new { @class="form-control", style = "width:204px;", id = "TimingId" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Material Type:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("MaterialTypeId", Model.MaterialType, new { @class="form-control", style = "width:204px;", id = "MaterialTypeId" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Timing Belt:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                @Html.DropDownList("TimingBeltId", Model.TimingBelt, new { @class="form-control", style = "width:204px;;", id = "MaterialTypeId" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Amount:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="Amount" name="Amount" class="form-control" type="text" maxlength="50" value="@Model.Amount" />
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="label column">
+                <span style="color:red;">*</span>Effective Date:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input id="DateEffective" name="DateEffective" class="form-control" type="text" maxlength="50" value="@Model.DateEffective " />
+            </div>
+        </div>
+       
+
+
+        <p></p>
+        <div class="row" >
+            <div class="form-group ml-3">
+                <input class="grayButton btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Submit" />
+            </div>
+            <div class="form-group ml-3">
+                <input id="btnCancel" class="btn btn-danger enabledButton" name="submitButton" style="width: 80px;"
+                       type="submit" value="Cancel" />
+            </div>
+            <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+                You must enter all information above correctly to enable submission.
+            </div>
+        </div>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#btnCancel').click(function () {
+                window.location.href = '/Administration/RadioService';
+                return false;
+            });
+
+
+            $('#RadioId').change(function () {
+               
+                $('#Amount').trigger("propertychange");
+            });
+            $('#DateEffective').change(function () {
+              
+                $('#Amount').trigger("propertychange");
+            });
+           
+            $('#TimingId').change(function () {
+
+                $('#Amount').trigger("propertychange");
+            });
+            $('#MaterialTypeId').change(function () {
+
+                $('#Amount').trigger("propertychange");
+            });
+
+            $('#Amount').bind('input propertychange',
+                function () {
+
+                    $('#btnSubmit').prop("class", "grayButton");
+                    $('#btnSubmit').prop("disabled", true);
+
+                   
+                    var dateEffect = $("#DateEffective").val().length > 0;
+
+                    var amount = $("#Amount").val().length > 0;
+                    var radio = ($("#RadioId").val() != -1);
+                    var timing = ($("#TimingId").val() != -1);
+                    var material = ($("#MaterialTypeId").val() != -1);
+
+                    if ((dateEffect) &&  (amount)&&(radio) && (timing) &&(material)
+                    ) {
+                        $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                        $('#btnSubmit').prop("class", "orangeButton");
+                        $('#btnSubmit').prop("disabled", false);
+                    }
+                });
+
+        });
+</script>
+

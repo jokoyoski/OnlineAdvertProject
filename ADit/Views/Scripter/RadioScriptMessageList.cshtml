@@ -1,0 +1,209 @@
+﻿@model ADit.Interfaces.IMessageRepliesListView
+
+@{
+    ViewBag.Title = "RadioScriptMessageList";
+}
+
+
+
+@{
+
+    var ifMessageExist = Model.InitialMessage != null;
+    var ifRepliesExist = Model.Replies.Count()>0;
+}
+
+
+<div class=" col-12">
+    @if (ifMessageExist)
+    {
+        <div class="jumbotron form-group">
+            <div>
+                <h1> <span style="color:Blue">Initial Message</span>  </h1>
+            </div>
+
+
+
+
+            <div class="row">
+                <label style="color:blue">Message Details</label>
+
+                <div class="label column col-" style="width: 175px; text-align: right; padding-right: 5px;">
+
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <label >@Model.InitialMessage</label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+    }
+    else
+    {
+        <h5 class="required">No message Exist</h5>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @if (ifRepliesExist)
+    {
+
+        <div class="col-12 panel-heading">
+            <span class="glyphicon glyphicon-comment"></span>
+            <h3 class="panel-title">
+                Replies
+            </h3>
+
+
+        </div>
+
+
+
+        foreach (var j in Model.Replies)
+        {
+
+
+            <div class=" col-12 panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+
+                            <div class="col-xs-10 col-md-11">
+                                <div>
+                                    <a href="#">
+
+                                    </a>
+                                    <div class="row">
+                                        <h4>Date</h4>
+
+                                        <label>
+
+                                            @DisplayHelper.DisplayDate(j.dateCreated)
+                                        </label>
+                                    </div>
+                                    <div class="mic-info">
+                                       
+                                        
+                                        <label>
+
+                                            <i style="color:green">from</i> &nbsp; &nbsp;  @j.userId
+                                        </label>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="comment-text">
+                                    <div class="data column" style="overflow: hidden;">
+
+                                        <label>
+                                            <i style="color:blue">Message Body</i> &nbsp; &nbsp;   @j.Message
+
+                                        </label>
+                                        <br />
+                                        <label class="pl-0">
+
+                                            <span style="color:darkred"> To</span> @j.Sento
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                               
+                               
+                                
+                                
+                                <div>
+                                    <a href="/Scripter/FileResult?FileId=@j.DigitalFileId" class="btn btn-sm btn-hover btn-danger"><span class="glyphicon glyphicon-remove" style="padding-right:3px;"></span>Download</a>
+                                </div>
+                                
+
+
+                            </div>
+                        </div>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        }
+
+    }
+    else
+    {
+
+
+        <h1 class="required">No Replies Yet</h1>
+    }
+
+
+    <div class="col-xs-12 col-md-12 col-10 jumbotron">
+        @using (Html.BeginForm("SaveRadioScriptReplies", "Scripter", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+
+
+            <input type="text" hidden name="MessageId" value="@Model.MessageId" />
+            <input type="text" hidden name="SentTo" value="@Model.SentToId" />
+            <input type="text" hidden name="transactionId" value="@Model.transactionId" />
+
+            <div class=" columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    Upload :
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input type="file" id="scriptMaterial" name="scriptMaterial" style="width: 250px;"
+                           accept=".txt,.doc,.jpg ,.docx,.pdf" title="Upload your Script" />
+                </div>
+            </div>
+
+
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                    Script Notes
+                </div>
+                <textarea value="@Model.Messages" name="Messages" rows="4" cols="50">
+
+          </textarea>
+            </div>
+
+
+
+            <div class="column" style="margin-left: 15px;">
+                <input id="btnCancel" class="enabledButton" name="submitButton" style="width: 80px;"
+                       type="submit" value="Submit" />
+            </div>
+        }
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<!------ Include the above in your HEAD tag ---------->
+

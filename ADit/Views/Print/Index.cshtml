@@ -1,0 +1,375 @@
+﻿@model ADit.Interfaces.IPrintMediaModelView
+@{
+    ViewBag.Title = "Buy print media advert";
+}
+
+<!--<h2>Register</h2>-->
+<div>
+    <p></p>
+</div>
+@using (Html.BeginForm("Index", "Print", FormMethod.Post, new {id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+    <div class="row no-gutters">
+    <div class="card col-10 m-auto">
+        <div class="card-header">
+            <h4>Buy Print Media Advert</h4>
+        </div>
+        <div class="card-body">
+
+
+            @Html.ValidationSummary()
+
+            @Model.ProcessingMessage
+            <div class="form-group" id="OrderTitle">
+                <label class="control-label"> Enter your Order Title <span class="text-danger">*</span></label>
+                <div class="">
+                    <input id="OrderTitle" name="OrderTitle" required class="form-control" type="text" maxlength="100" value="@Model.OrderTitle" placeholder="Provide a name or title"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label required">* Do you have an Artwork ?</label>
+                        <div class="">
+                            <select id="Artwork" name="IsHaveMaterial" class="form-control">
+
+                                <option value="true" selected>Yes</option>
+                                <option value="false">No</option>
+
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group" id="artworkIdentifier">
+                        <label class="control-label"> Upload your produced material: <span class="text-danger">*</span></label>
+                        <div class="data" style="overflow: hidden">
+                            <input type="file" id="artwork" name="artworkUpload" class="form-control"
+                                   accept=".txt,doc/doc ,doc/docx,pdf/pdf,.jpg " title="Upload ypur script"/>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label"> What category do you require? <span class="text-danger">*</span></label>
+                        <div class="data" style="overflow: hidden">
+                            @Html.DropDownList("PrintCategoryId", Model.PrintCategoryType, new {@class = "form-control", id = "PrintCategoryId"})
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="form-group" id="artworkdescription">
+                <label class="control-label"> Specify additional Design/Artwork Description: <span class="text-danger">*</span></label>
+                <div class="data" style="overflow: hidden">
+                    <textarea id="colorDescription" name="colorDescription" required class="form-control">@Model.ColorDescription</textarea>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label required"> Do you have an APCON Approval?<span class="text-danger">*</span></label>
+
+                        <select id="ApconQuestion" name="ApconQuestion" class="form-control">
+                            <option value="Empty">[Select An Option]</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+
+
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group" id="Apcondescribe">
+                        <label class="control-label required"> Enter your APCONApproval Number:<span class="text-danger">*</span></label>
+                        <div class="">
+                            <input id="ApconApprovalNumber" name="ApconApprovalNumber" class="form-control" type="text" maxlength="100" value="@Model.ApconApprovalNumber"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="apconidentifier">
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label required"> Select an APCON Approval Type:<span class="text-danger">*</span></label>
+                        <div class="data" style="overflow: hidden">
+                            @Html.DropDownList("ApconApprovalTypeId", Model.ApconApprovalCollectionList, new {@class = "form-control", id = "ApconApprovalTypeId"})
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group ApconAmountOption" id="ApconAmountOption">
+                        <label class="control-label required"> APCON Price:<span class="text-danger">*</span></label>
+                        <div class="data" style="overflow: hidden">
+                            <input type="text" id="ApconAmount" readonly name="ApconAmount" class="form-control" value="@Model.ApconAmount"/>
+                            <input type="hidden" id="selectedApconTypePriceId" readonly name="ApconApprovalTypeId" class="form-control" value="@Model.ApconApprovalTypeId"/>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label required"> What design element do you require?<span class="text-danger">*</span></label>
+                        <div class="data" style="overflow: hidden">
+                            @Html.DropDownList("DesignElementId", Model.DesignElementType, new {@class = "form-control", id = "DesignElementId"})
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group DesignAmountOption" id="DesignAmountOption">
+                        <label class="control-label required"> Design Price:<span class="text-danger">*</span></label>
+                        <div class="">
+                            <input type="text" id="DesignElementAmount" readonly name="DesignElementAmount" class="form-control" value="@Model.DesignElementAmount.ToString("#")"/>
+                            <input type="hidden" id="DesignElementPriceId" readonly name="DesignElementPriceId" class="form-control" value="@Model.DesignElementPriceId"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- NewsPaper Selection View Here -->
+    @if (Model.NewsPaperList.Any())
+    {
+        <div class="columns" style="font-size: 12px; width: 100%; font-style: italic;">
+            Hold down the shift key to sort with multiple columns.
+        </div>
+        <div class="table-responsive container-fluid">
+            <table id="tableList" class="table" style="border-color: transparent;">
+                <colgroup>
+
+                    <col style="width: 20px;"/>
+                    <col style="width: 250px;"/>
+                    <col style="width: 250px;"/>
+                    <col style="width: 200px;"/>
+                    <col style="width: 200px;"/>
+                    <col style="width: 100px;"/>
+
+                </colgroup>
+                <thead class="thead-light">
+                    <tr>
+
+                        <th data-sorter="false"></th>
+
+                        <th>NewsPaper</th>
+                        <th>Color</th>
+                        <th data-sorter="false">Advert Size</th>
+                        <th data-sorter="false">Print Media Type</th>
+                        <th data-sorter="false">Number of Inserts</th>
+                        <th data-sorter="false">Date</th>
+
+
+                        <th data-sorter="false">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @{ var i = 0; }
+                @foreach (var d in Model.AiringDetailsList)
+                {
+                    var checkBoxId = "checkBox_" + d.NewsPaperId;
+                    var disabledStr = d.IsSelected ? "false" : "disabled";
+
+
+                    <tr style="width: 150%;">
+
+
+                        <td style="border: 1px solid #FFF !important;">
+
+
+                            <input type="checkbox" id="@checkBoxId" name="selectedNewsPapersId" value="@d.NewsPaperId" class="form-control"
+                                   @DisplayHelper.Checked(d.IsSelected) />
+
+                            <input type="hidden" id="printTransactionAiringUI[@i].NewsPaperId" name="printTransactionAiringUI[@i].NewsPaperId" value="@d.NewsPaperId" />
+
+
+                        </td>
+                        <td style="border: 1px solid #FFF !important;">
+                            @Model.GetNewsPaperDescription(d.NewsPaperId)
+
+
+
+
+                        </td>
+                        <td>
+                            @{
+                                var serviceColorName = "printTransactionAiringUI[" + i + "].PrintColorId";
+                                var serviceColorDDL = Model.GetPrintServiceColorDDL(d.PrintColorId);
+                            }
+
+                            @Html.DropDownList("printTransactionAiringUI[" + i + "].PrintColorId", serviceColorDDL, new { @class = "serviceColor form-control", id = "serviceColor_" + d.NewsPaperId })
+
+                        </td>
+
+                        <td>
+                            @{
+                                var serviceTypeName = "printTransactionAiringUI[" + i + "].PrintServiceId";
+                                var serviceTypeDDL = Model.GetPrintServiceTypeDDL(d.PrintServiceId);
+                            }
+
+                            @Html.DropDownList("printTransactionAiringUI[" + i + "].PrintServiceId", serviceTypeDDL, new { @class = "serviceType form-control", id = "serviceType_" + d.NewsPaperId })
+
+                        </td>
+
+
+                        <td>
+                            @{
+                                var printMediaTypeName = "printTransactionAiringUI[" + i + "].PrintMediaTypeId";
+                                var printMediaTypeDDL = Model.GetPrintMediaTypeDDL(d.PrintMediaTypeId);
+                            }
+
+                            @Html.DropDownList("printTransactionAiringUI[" + i + "].PrintMediaTypeId", printMediaTypeDDL, new { @class = "printMediaType form-control", id = "printMediaType_" + d.NewsPaperId })
+
+                        </td>
+
+
+                        <td>
+                            <input type="text" id="inserts_@d.NewsPaperId" name="printTransactionAiringUI[@i].NumberOfInserts" value="@DisplayHelper.DisplayInt(d.NumberOfInserts)" class="insertsNumber form-control" maxlength="3" />
+
+                        </td>
+
+
+                        <td>
+                            <input id="date_@d.NewsPaperId" type="date" value="@DisplayHelper.DisplayDate(d.StartDate)" name="printTransactionAiringUI[@i].StartDate" disabled="disabled" />
+
+
+                        </td>
+
+                        <td>
+
+                            <input type="hidden" id="amount_@d.NewsPaperId" class="form-control" readonly name="printTransactionAiringUI[@i].NewsPaperPrice" value="@d.NewsPaperPrice" />
+                            <input type="hidden" id="totalamount_@d.NewsPaperId" class="form-control" readonly name="ScriptingAmount" value="0" />
+                            <span id="textamount_@d.NewsPaperId">&#8358; 0:00</span>
+                        </td>
+
+                        @{ i++; }
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="columns" style="margin-top: 10px; width: 100%;">
+            <div class="column">
+                @DisplayHelper.TablePager(Model.NewsPaperList.Count())
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; margin-top: 15px; width: 100%;">
+            <div class="validation-summary-errors">
+                You do not have any newspaper selected for this transaction
+            </div>
+        </div>
+    }
+
+    <input type="hidden" readonly id="finalAmount" name="TotalAmount" value="@Model.TotalAmount"/>
+
+    <div class="col-12">
+        <h3 id="TotalAmount" name="TotalAmount" style="font-size: 20px" class="text-right">
+            Price : #0.00
+        </h3>
+    </div>
+
+
+    <div class="col-12">
+        <input type="submit" value="Add To Cart" class="btn btn-danger pull-right" style="width: 125px;"/>
+
+    </div>
+
+    </div>
+    </div>
+}
+
+
+
+@section JavaScriptsExecution
+{
+
+
+
+
+    @*   //Table Sorter Query*@
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(function() {
+                $('#tableList').tablesorter({
+                    theme: 'blue',
+                    headers: { 3: { sorter: false }, 4: { sorter: false } },
+                    widthFixed: true,
+                    widgets: ['zebra'],
+                    size: 50
+                }).tablesorterPager({ container: $("#pager"), size: 50 });
+            });
+
+            // popup page
+            var $popupDialog = $('<div></div>').dialog({
+                autoOpen: false,
+                width: 750,
+                modal: true,
+                title: '',
+                closeText: "",
+                closeOnEscape: true,
+                resizable: true
+            });
+
+            $('.date').datepicker({
+                multidate: true,
+                format: 'dd-mm-yyyy'
+            });
+
+
+        });
+    </script>
+}
+
+@section JavaScriptsIncludes
+{
+
+    <script src="/Scripts/jquery-ui-1.12.1.js" type="text/javascript"></script>
+    <script src="/Scripts/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="/Scripts/tablesorter/jquery.tablesorter.widgets.js" type="text/javascript"></script>
+    <script src="/Scripts/tablesorter/jquery.tablesorter.pager.js" type="text/javascript"></script>
+
+    @*    //Print Medai Transaction Script*@
+
+    <script src="~/Scripts/services/printMedia.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+}
+
+@section Stylesheets
+{
+
+    <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css"/>
+    <link href="/Content/tablesorter/theme.blue.css" rel="stylesheet" type="text/css"/>
+    <link href="/Content/tablesorter/jquery.tablesorter.pager.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+
+}

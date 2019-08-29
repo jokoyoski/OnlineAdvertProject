@@ -1,0 +1,82 @@
+﻿
+@model ADit.Interfaces.INewsPaperView
+
+@{
+    ViewBag.Title = "Edit NewsPaper";
+}
+
+@section PageTitle{
+    Update NewsPaper
+}
+
+
+<a href="/Print/NewsPaper?newsPaperId=@Model.NewsPaperId"> All NewsPaper</a>
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("EditNewsPaper", "Print", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <input type="hidden" name="NewsPaperId" value="@Model.NewsPaperId" />
+
+        <div class="form-group">
+            <div class="columns" style="width: 100%; padding-top: 5px;">
+                <div class="label column">
+                    <span style="color:red;">*</span>News Paper Name:
+                </div>
+                <div class="data column" style="overflow: hidden;">
+                    <input id="Description" name="Description" class="form-control" type="text"  maxlength="50" value="@Model.Description" />
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="form-inline pl-3">
+            <input class="enabledButton btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Submit" />
+            <div class="pl-3">
+                <input id="btnCancel" class="enabledButton btn btn-danger" name="submitButton" style="width: 80px;"
+                       type="submit" value="Cancel" />
+            </div>
+        </div>
+
+       
+    }
+</div>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#btnCancel').click(function() {
+                window.location.href = '/Print/NewsPaper';
+                return false;
+            });
+
+
+            $('#Description').bind('input propertychange',
+                function () {
+
+                    $('#btnSubmit').prop("class", "grayButton");
+                    $('#btnSubmit').prop("disabled", true);
+
+                    var description = $('#Description').val().length > 0;
+
+
+                    if ((description)
+                    ) {
+                        $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                        $('#btnSubmit').prop("disabled", false);
+                    }
+                });
+
+        });
+</script>

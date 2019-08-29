@@ -1,0 +1,88 @@
+﻿@model ADit.Interfaces.IRegistrationView
+@{
+    ViewBag.Title = "ADit Register";
+}
+
+<!--<h2>Register</h2>-->
+<div class="mybgimage">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row no-gutters pt-5">
+                <div class="card col-md-4 m-auto">
+                    <div class="card-header">
+                        <h4 style="text-align: center; color: orangered;">New User Registration</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-danger">@Html.ValidationSummary()</p>
+                        <p class="text-danger"> @Model.ProcessingMessage</p>
+
+                        <div class="form-group">
+                            <label class="control-label"> First Name</label>
+                            <div class="">
+                                <input type="text" placeholder="FirstName" name="FirstName" id="FirstName" value="@Model.FirstName" class="form-control inputtext"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"> Last Name</label>
+                            <div class="">
+                                <input type="text" name="LastName" id="LastName" placeholder="LastName" value="@Model.LastName" class="form-control inputtext"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label">Email </label>
+                            <div class="">
+                                <input type="email" name="Email" placeholder="Email" id="Email" value="@Model.Email" class="form-control inputtext"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label"> Phone Number </label>
+                            <div class="">
+                                <input type="text" name="Phonenumber" id="Phonenumber" placeholder="Phone Number" value="@Model.Phonenumber" class="form-control inputtext"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label"> Password</label>
+                            <div class="">
+                                <input type="password" placeholder="Password" name="Password" id="Password" value="@Model.Password" class="form-control inputtext"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label"> Confirm Password</label>
+                            <div class="">
+                                <input type="password" placeholder="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" value="@Model.ConfirmPassword" class="form-control inputtext"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="Consent" id="Consent" value="true"/>
+                                    <label class="control-label" style="font-size: 12px"> I agree to the given Terms of Services?</label>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit" name="login" value="REGISTER" class="button1 mt-5"/>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>

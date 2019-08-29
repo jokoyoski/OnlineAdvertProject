@@ -1,0 +1,334 @@
+﻿@model ADit.Interfaces.IMessagesListView
+@using ADit.Interfaces.ValueTypes
+
+@{
+
+    ViewBag.Title = "Inbox";
+    var hasOrder = (Model != null);
+
+    var hasMessages = Model.Messages.Count > 0;
+
+    int messagesno = Model.Messages.Count;
+
+
+
+}
+
+@*<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Inbox | Notika - Notika Admin Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">*@
+
+
+@section Stylesheets
+    {
+    <!-- favicon
+    ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/normalize.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- Notika icon CSS
+        ============================================ -->
+    @*<link rel="stylesheet" href="~/Content/css/notika-custom-icon.css">*@
+    <!-- wave CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/wave/waves.min.css">
+    <link rel="stylesheet" href="~/Content/css/wave/button.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/main.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+}
+
+
+@*</head>*@
+
+<br />
+
+
+
+<div class="inbox-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <div class="inbox-left-sd">
+                    <div class="compose-ml">
+                        <a class="btn" href="/Home/Contact">Contact Us</a>
+                    </div>
+                    <div class="inbox-status">
+                        <ul class="inbox-st-nav inbox-ft">
+                            <li class="hove"><a href="#"><i class="forceicolor fa fa-envelope-o"></i> Inbox<span class="pull-right">@HttpContext.Current.Session[SessionKey.MessageNumber]</span></a></li>
+                            
+                            <li class="hove"><a class="forceicolora" href="#"><i class="forceicolor fa fa-file-o"></i> Draft</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="inbox-status">
+                        <ul class="inbox-st-nav inbox-nav-mg">
+                            <li class="hove"><a href="/Fulfilment/RadioTransactions"><i class="forceicolor   fa fa-file-audio-o"></i> Radio</a></li>
+                            <li class="hove"><a href="/Fulfilment/TvTransaction"><i class="forceicolor fa fa-tv"></i> TV</a></li>
+                            <li class="hove"><a href="/Fulfilment/OnlineTransactions"><i class="forceicolor fa fa-wikipedia-w"></i> Online</a></li>
+                            <li class="hove"><a href="/Fulfilment/BrandingTransactions"><i class="forceicolor  fa fa-cogs"></i> Branding</a></li>
+                            <li class="hove"><a href="/Fulfilment/PrintTransaction" class="parthover"><i class="forceicolor fa fa-newspaper-o"></i> Print</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="inbox-text-list sm-res-mg-t-30">
+                    <div class="form-group">
+                        <div class="nk-int-st search-input search-overt">
+                            <input type="text" class="form-control" placeholder="Search email..." />
+                            <button class="btn search-ib">Search</button>
+                        </div>
+                    </div>
+                    <div class="inbox-btn-st-ls btn-toolbar">
+                        <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+
+                            <a href="inbox" title="Refresh" class="btn btn-default btn-sm"><i class="forceicolor fa fa-refresh"></i> Refresh</a>
+                            <button class="btn btn-default btn-sm"><i class="forceicolor fa fa-arrow-down"></i></button>
+                        </div>
+                        <div class="btn-group ib-btn-gp active-hook nk-act nk-email-inbox">
+                            <button class="btn btn-default btn-sm"><i class="forceicolor fa fa-arrow-circle-left"></i></button>
+                            <button class="btn btn-default btn-sm"><i class="forceicolor fa fa-arrow-circle-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-inbox dataTables_paginate" id="data">
+                            <tbody id="myTableBody">
+                                @if (hasMessages)
+                                {
+                                    var count = Model.Messages.Count;
+                                    int noOfMessages = Convert.ToInt32(count);
+                                    int k = 0;
+                                    int MessagesPerPage = 10;
+
+                                    foreach (var j in Model.Messages)
+                                    {
+                                        var indexofMessage = Model.Messages.IndexOf(j);
+
+                                        if (j.IsRead == false || Model.replies[indexofMessage] > 0)
+                                        {
+                                            {
+                                                <tr data-href="/Message/RepliesById?MessageId=@j.Id&Subject=@j.Subject" class="changebg" style="font-weight: bolder;">
+                                                    <td class="">
+                                                        
+                                                    </td>
+                                                    <td><label class="changebg">@j.AdminName</label></td>
+                                                    <td>
+                                                        <label class="changebg">@j.Subject</label>
+                                                    </td>
+                                                    @if (j.DigitalFileId > 0)
+                                                    {
+                                                        <td><i class="fa fa-paperclip"></i></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><i class=""></i></td>
+                                                    }
+                                                    <td class="text-right mail-date">
+                                                            @Model.TimeAgo(j.dateModified)
+
+
+
+                                                    </td>
+
+                                               
+                                                
+
+
+
+                                                </tr>
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            {
+                                                <tr data-href="/Message/RepliesById?MessageId=@j.Id&Subject=@j.Subject">
+                                                    <td class="">
+                                                        
+                                                    </td>
+                                                    <td><label class="changea">@j.AdminName</label></td>
+                                                    <td>
+                                                        <label class="changea">@j.Subject</label>
+                                                    </td>
+                                                    @if (j.DigitalFileId > 0)
+                                                    {
+                                                        <td><i class="fa fa-paperclip"></i></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><i class=""></i></td>
+                                                    }
+
+                                                    @if (j.Subject != null && Model.allRepliesDates[indexofMessage] == DateTime.Parse("1928-03-28"))
+                                                    {
+                                                        <td class="text-right mail-date">
+                                                            @Model.TimeAgo(j.Date)
+
+
+
+                                                        </td>
+
+                                                    }
+                                                    else if (j.Subject != null && Model.allRepliesDates[indexofMessage] != DateTime.Parse("1928-03-28") && Model.allUnreadRepliesDate[indexofMessage] == DateTime.Parse("1928-03-28"))
+                                                    {
+                                                        <td class="text-right mail-date">@Model.TimeAgo(Model.allRepliesDates[indexofMessage])</td>
+                                                    }
+                                                    else if (j.Subject != null || Model.allUnreadRepliesDate[indexofMessage] != DateTime.Parse("1928-03-28"))
+                                                    {
+                                                        <td class="text-right mail-date">@Model.TimeAgo(Model.allUnreadRepliesDate[indexofMessage])</td>
+                                                    }
+
+                                                </tr>
+                                            }
+                                        }
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section JavaScriptsExecution
+    {
+    <script>
+        jQuery(document).ready(function ($) {
+            $('*[data-href]').on('click', function () {
+                window.location = $(this).data("href");
+            });
+        })
+    </script>
+
+}
+
+
+@section JavaScriptsIncludes
+    {
+    <script>
+        $(document).ready(function () {
+            $('#data').after('<div class="pagination-inbox" id="meny"></div>');
+            $('#meny').append('<ul class="wizard-nav-ac" id="nav"></ul>');
+            var rowsShown = 5;
+            var rowsTotal = $('#data tbody tr').length;
+            var numPages = rowsTotal / rowsShown;
+            for (i = 0; i < numPages; i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<li><a class="btn" href="#" rel="' + i + '">' + pageNum + '</a></li> ');
+            }
+            $('#data tbody tr').hide();
+            $('#data tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('forceicolor');
+            $('#nav a').bind('click', function () {
+
+                $('#nav a').removeClass('forceicolor');
+                $(this).addClass('forceicolor');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#data tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+                    css('display', 'table-row').animate({ opacity: 1 }, 300);
+            });
+        });
+    </script>
+    <!-- jquery
+            ============================================ -->
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="js/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="js/jquery-price-slider.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="js/meanmenu/jquery.meanmenu.js"></script>
+    <!-- counterup JS
+        ============================================ -->
+    <script src="js/counterup/jquery.counterup.min.js"></script>
+    <script src="js/counterup/waypoints.min.js"></script>
+    <script src="js/counterup/counterup-active.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- sparkline JS
+        ============================================ -->
+    <script src="js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="js/sparkline/sparkline-active.js"></script>
+    <!-- flot JS
+        ============================================ -->
+    <script src="js/flot/jquery.flot.js"></script>
+    <script src="js/flot/jquery.flot.resize.js"></script>
+    <script src="js/flot/flot-active.js"></script>
+    <!-- knob JS
+        ============================================ -->
+    <script src="js/knob/jquery.knob.js"></script>
+    <script src="js/knob/jquery.appear.js"></script>
+    <script src="js/knob/knob-active.js"></script>
+    <!--  wave JS
+        ============================================ -->
+    <script src="js/wave/waves.min.js"></script>
+    <script src="js/wave/wave-active.js"></script>
+    <!-- icheck JS
+        ============================================ -->
+    <script src="js/icheck/icheck.min.js"></script>
+    <script src="js/icheck/icheck-active.js"></script>
+    <!--  Chat JS
+        ============================================ -->
+    <script src="js/chat/jquery.chat.js"></script>
+    <!--  todo JS
+        ============================================ -->
+    <script src="js/todo/jquery.todo.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="js/plugins.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="js/main.js"></script>
+    <!-- tawk chat JS
+        ============================================ -->
+    <script src="js/tawk-chat.js"></script>
+
+
+
+}
+

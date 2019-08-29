@@ -1,0 +1,56 @@
+﻿@model ADit.Interfaces.IOnlinePlatformView
+
+@{
+    ViewBag.Title = "Delete Online Platform ";
+}
+
+@section PageTitle{
+    Delete Online Extra Service
+}
+
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("DeleteOnlinePlatform", "Online", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="OnlinePlatformId" value="@Model.OnlinePlatformId" />
+
+
+
+        <div class="text-danger text-center">Are you sure you want to delete the Online Platform?</div>
+        <p class="text-center text-bold" style="font-weight: bold">Online Platform</p>
+        <p class="text-center text-bold">@Model.Description</p>
+
+
+
+
+        <div class="" align="center">
+            <input class="grayButton btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Delete" />
+
+            <a href="/Online/OnlinePlatformList" class="btn btn-danger" id="btnCancel" name="submitButton" style="width: 80px;color:white">Cancel</a>
+
+        </div>
+       
+    }
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("span.ui-dialog-title").text('Delete Online Platform ');
+
+        $('#btnCancel').click(function () {
+            window.location.href = '/Online/OnlinePlatformList';
+            return false;
+        });
+
+    });
+</script>

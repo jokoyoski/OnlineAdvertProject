@@ -1,0 +1,79 @@
+﻿@model ADit.Interfaces.IUserRolesView
+
+
+
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";        
+
+    ViewBag.Title = "User Registration Roles List";
+
+
+}
+
+
+
+
+
+<div class="container">
+
+    @if (Model.processingMessage != null)
+    {
+        <label class="alert alert-primary">@Model.processingMessage</label>
+    }
+    <h2>User Registration Roles</h2>
+    
+    @using (Html.BeginForm("UserRegistrationRoles", "Administration", FormMethod.Post, new { id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="text" value="@Model.Email" hidden name="Email" />
+
+        <div class="form-group col-md-6">
+            <label class="control-label">
+                <span style="color: red;">*</span> Add New Roles?
+            </label>
+            <div class="data" style="overflow: hidden;" id="artwork">
+                @Html.DropDownList("UserRolesId", Model.UserRolesList, new { @class = "form-control", id = "UserRolesId" })
+            </div>
+        </div>
+
+        <input id="submitButton" disabled class="btn btn-primary" value="Submit" type="submit" />
+    }
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>User Roles</th>
+
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        @foreach (var j in Model.UserRoles)
+        {
+            <tr>
+                <td>
+                    @j.UserRolesDescription
+                </td>
+
+                <td>
+                    <a class="btn btn-primary" href="DeleteRoles?userRolesId=@j.UserRolesId&email=@Model.Email">Delete Roles</a>
+                </td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
+</div>
+
+
+@section JavaScriptsIncludes
+{
+
+    <script src="~/Scripts/User/User.js" type="text/javascript"></script>
+
+
+}

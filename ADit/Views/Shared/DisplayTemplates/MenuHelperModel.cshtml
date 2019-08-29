@@ -1,0 +1,136 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.MenuHelperModel
+@using System.Web.Mvc.Html
+@{
+    var nodes = Model.Nodes;
+    var model = nodes.Where(n => n.IsInCurrentPath && !n.IsRootNode).FirstOrDefault();
+    var mainMenuNodesCount = Model.Nodes.Count();
+
+    var noOfNodeChildren = model == null ? 0 : model.Children.Count;
+    var tabClass = string.Empty;
+    var nodeCount = 0;
+
+    var homeTabClass = ((model != null) && (model.Controller == "Home")) ? "active" : string.Empty;
+    homeTabClass = model == null ? "active" : homeTabClass;
+}
+<div style="float: left; width:100%;">
+    <ul class="nav">
+        @foreach (var node in Model.Nodes)
+        {
+            nodeCount++;
+
+            tabClass = node.IsInCurrentPath ? "active" : string.Empty;
+            if (node.IsRootNode && (model != null && !model.IsRootNode))
+            {
+                tabClass = string.Empty;
+            }
+            <li class="nav-item mynav @tabClass">
+
+                @Html.DisplayFor(m => node)
+
+            </li>
+
+            if (nodeCount != mainMenuNodesCount)
+            {
+            <li>
+                <span class="navSeparator">
+
+                </span>
+            </li>
+            }
+        }
+    </ul>
+</div>
+@if (noOfNodeChildren > 0)
+{
+    var selectedChild = model.Children.Where(n => n.IsInCurrentPath).FirstOrDefault();
+    var grandchildrenCount = selectedChild == null ? 0 : selectedChild.Children.Count;
+    <ul class="nav nav-tabs">
+        @{
+            int x = 0;
+            var children = model.Children;
+            int count = children.Count();
+            foreach (var node in children)
+            {
+                <li class="nav-item">
+                    @if (node.IsInCurrentPath)
+                    {
+                        if (node.IsCurrentNode)
+                        {
+                            <a class="nav-link active">@node.Title</a>
+                        }
+                        else
+                        {
+                            <a href="@(node.Url)" class="nav-link font-weight-bold" style="text-decoration:none;">
+                                @node.Title
+                            </a>
+                        }
+                    }
+                    else if (node.IsClickable)
+                    {
+                        var boldClass = string.Empty;
+                        if (node.IsInCurrentPath)
+                        {
+                            boldClass = "active";
+                        }
+                        <a href="@(node.Url)" class="nav-link @boldClass">
+                            @node.Title
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="nav-link"> @node.Title</span>
+                    }
+
+                </li>
+                x++;
+            }
+        }
+    </ul>
+
+    if (grandchildrenCount > 0)
+    {
+        <ul class="nav">
+            @{
+                int y = 0;
+                var grandChildren = selectedChild.Children;
+                int theCount = grandChildren.Count();
+                foreach (var node in grandChildren)
+                {
+                    <li class="nav-item">
+                        @if (node.IsInCurrentPath)
+                        {
+                            <span class="nav-link font-weight-bold">@node.Title</span>
+                        }
+                        else if (node.IsClickable)
+                        {
+                            var boldClass = string.Empty;
+                            if (node.IsInCurrentPath)
+                            {
+                                boldClass = "";
+                            }
+                            <a href="@(node.Url)" class="nav-link">
+                                @node.Title
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="nav-link">@node.Title</span>
+                        }
+                        @*@if (y < (theCount - 1))
+                            {
+                                <span>|</span>
+                            }*@
+                    </li>
+                    y++;
+                }
+            }
+        </ul>
+
+
+    }
+
+
+
+
+}
+

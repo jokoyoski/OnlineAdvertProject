@@ -1,0 +1,138 @@
+﻿@model ADit.Interfaces.IApconApprovalTypePriceView
+
+@{
+    ViewBag.Title = "Save Apcon Approval Type Price";
+}
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@section PageTitle{
+    Apcon Approval Type
+}
+
+<div class="jumbotron container">
+    <div class="form-group" style="font-size: 12px;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("CreateApconPrice", "Administration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="ApconApprovalTypeId" name="BrandingMaterialPriceId" value="@Model.ApconApprovalTypeId" />
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Apcon ApprovalType:
+                @Html.DropDownList("ApconApprovalTypeId", Model.ApconApprovalType, new { @class = "form-control", style = "width:204px;", id = "ApconApprovalTypeId" })
+            </div>
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Enter the amount:
+                <input class="form-control" id="Amount" name="Amount" style="width: 204px;" type="text" maxlength="100" value="@Model.Amount" />
+            </div>
+
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Comment :
+                <input class="form-control" id="Comment" name="Comment" style="width: 204px;" type="text" maxlength="100" value="@Model.Comment" />
+            </div>
+            <div class="col-md-5">
+                <span style="color:red;">*</span>Date Effective :
+                <input class="form-control" id="EffectiveDate" name="EffectiveDate" style="width: 204px;" type="date" maxlength="100" value="@Model.EffectiveDate" />
+            </div>
+        </div>
+
+
+        <div align="center">
+            <input type="submit" value="submit" class="btn btn-primary" />
+            <input type="submit" value="Cancel" class="btn btn-danger" />
+
+        </div>
+
+    }
+</div>
+
+
+
+@*@section JavaScriptsExecution
+    {
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('#btnCancel').click(function () {
+                        alert("Precious");
+
+                        window.location.href = '/Administration/ApconPrice';
+                        return false;
+
+                    });
+
+                    $("#BrandingMaterialId").change(function () {
+                        $("#Amount").trigger('propertychange');
+
+                    });
+
+
+
+                    $("#Comment").change(function () {
+
+                        $("#Amount").trigger('propertychange');
+                    });
+
+
+                    $("#EffectiveDate").change(function () {
+
+                        $("#Amount").trigger('propertychange');
+                    });
+
+
+                    $('#Amount').bind('input propertychange',
+                        function () {
+
+                            $('#btnSubmit').prop("class", "grayButton");
+                            //   $('#btnSubmit').prop("disabled", true);
+
+
+                            var effectiveDate = $("#EffectiveDate").val().length > 0;
+                            var dateInActive = $("#DateInactive").val().length > 0;
+                            var comment = $("#Comment").val().length > 0;
+                            var amount = $("#Amount").val().length > 0 && $("#Amount").val() > 0;
+                            var branding = ($("#BrandingMaterialId").val() != -1);
+
+                            if ((comment && amount && branding && effectiveDate
+                            ) /*&& (comment )&& (amount)*/ /*&&(comment) && (amount)*/
+                            ) {
+                                $('#btnSubmit').prop("class", "enabledButton btn btn-primary");
+                                $('#btnSubmit').prop("disabled", false);
+                            }
+                        });
+
+                });
+            </script>
+
+        }
+
+
+        @section Stylesheets{
+            <link href="/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
+        }*@
+
+
+
+
+
+
+
+
+

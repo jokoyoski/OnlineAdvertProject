@@ -1,0 +1,71 @@
+﻿@model ADit.Interfaces.ITvStationView
+
+
+@{
+    ViewBag.Title = "Delete TvStation";
+}
+
+@section PageTitle{
+    Delete TvStation
+}
+
+
+
+
+
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("DeleteTvStation", "Tv", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="TvStationId" value="@Model.TVStationId" />
+
+
+        <div class="text-danger text-center">Are you sure you want to delete the selected Television Station ?</div>
+        <p class="text-center text-bold" style="font-weight: bold">Television Station description</p>
+        <p class="text-center text-bold">@Model.Description</p>
+
+
+
+
+        <div align="center">
+
+            <input class="btn btn-primary" id="btnSubmit" name="submitButton" style="width: 80px;" type="submit" value="Delete" />
+            <input id="btnCancel" class="btn btn-danger enabledButton" name="submitButton" style="width: 80px;"
+                   type="submit" value="Cancel" />
+
+        </div>
+    }
+</div>
+
+<script>
+    $('#btnCancel').click(function () {
+        window.location.href = '/Tv/TvStations';
+        return false;
+    });
+
+</script>
+
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('#btnCancel').click(function () {
+                window.location.href = '/Tv/TvStations';
+                return false;
+            });
+
+            $('#btnSubmit').prop("class", "enabledButton");
+            $('#btnSubmit').prop("disabled", false);
+
+
+        });
+    </script>*@

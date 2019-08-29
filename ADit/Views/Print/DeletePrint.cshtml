@@ -1,0 +1,66 @@
+﻿
+
+<h2>Delete Print Media Service</h2>
+@model ADit.Interfaces.IPrintMediaModelView
+
+@*@{
+        ViewBag.Title = "Delete Print Media Service";
+    }*@
+
+@section PageTitle{
+    Delete Print Media Service
+}
+
+
+
+<div class="jumbotron">
+    <div class="columns" style="font-size: 12px; margin-left: 15px; margin-top: 15px; width: 100%;">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+            @Model.ProcessingMessage
+        </div>
+    </div>
+    @using (Html.BeginForm("DeletePrint", "Print", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <input type="hidden" name="Id" value="@Model.PrintTransactionId" />
+
+        <div class="columns" style="width: 100%; padding-top: 5px;">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                <span class="required">*</span>Description:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                Delete Print Service Type Price Entry?
+                <input id="PrintServiceCode" name="PrintServiceCode" style="width: 250px;" type="hidden" maxlength="50" value="@Model.PrintServiceCode" />
+            </div>
+        </div>
+
+
+        <div class="columns" style="width: 100%; padding-top: 15px; padding-bottom: 5px;">
+            <div class="column" style="margin-left: 195px;">
+                <input class="grayButton" id="btnSubmit" name="submitButton" style="width: 80px;" disabled type="submit" value="Delete" />
+            </div>
+            <div class="column" style="margin-left: 15px;">
+                <input id="btnCancel" class="blueButton" name="submitButton" style="width: 80px;"
+                       type="submit" value="Cancel" />
+            </div>
+            <div class="column" style="font-size: 9px; font-weight: bold; font-style: italic; padding-left: 5px; padding-top: 2px;">
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+                        $('#btnSubmit').prop("class", "blueButton");
+                        $('#btnSubmit').prop("disabled", false);
+
+        });
+</script>
+

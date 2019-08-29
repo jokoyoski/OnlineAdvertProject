@@ -1,0 +1,19 @@
+﻿@model HandleErrorInfo
+@{
+    ViewBag.Title = "Error";
+}
+<div class="columns">
+    <h1 class="validation-summary-errors" style="color: red;">
+        Error occured, please contact us with the message below
+    </h1>
+</div>
+<div class="columns" style="margin-top: 20px;">
+    @(Model == null ? "" : Model.Exception.Message)
+</div>
+<div class="columns" style="margin-top: 20px;">
+    @(Model == null ? "" : Model.Exception.StackTrace)
+</div>
+<div class="columns" style="margin-top: 20px;">
+    @(Model == null ? "" : Model.Exception.Source)
+</div>
+

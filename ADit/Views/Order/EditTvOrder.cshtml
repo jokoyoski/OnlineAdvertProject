@@ -1,0 +1,505 @@
+﻿@model ADit.Interfaces.ITvView
+@{
+    ViewBag.Title = "Purchase Tv station  services";
+}
+
+
+
+
+@using (Html.BeginForm("Index", "Tv", FormMethod.Post, new {id = "editForm", enctype = "multipart/form-data", encoding = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+    <h4></h4>
+    <hr/>
+    <p class="text-danger">@Html.ValidationSummary()</p>
+    <p class="text-danger"> @Model.ProcessingMessage</p>
+    <input type="hidden" name="orderPosition" value="@Model.OrderPosition"/>
+
+    <div class="columns" style="width: 100%; padding-top: 5px;">
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Order Title:
+        </div>
+        <div class="data column" style="overflow: hidden;">
+            <input id="OrderTitle" name="orderTitle" style="width: 204px;" type="text" maxlength="100" value="@Model.OrderTitle"/>
+        </div>
+    </div>
+
+    <div class="columns" style="width: 100%; padding-top: 5px;">
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Do you have a Script or Production Material:
+        </div>
+        <div class="data column" style="overflow: hidden;">
+            @Html.DropDownList("MaterialId", new List<SelectListItem>
+            {
+                new SelectListItem {Text = "[Select an Option]", Value = "0"},
+                new SelectListItem {Text = "I don’t have a script/produced material", Value = "1"},
+                new SelectListItem {Text = "I have a script but not the produced material", Value = "2"},
+                new SelectListItem {Text = "I have a script and the produced material", Value = "3"}
+            }, new {style = "width:204px;height:20px;", id = "MaterialId"})
+        </div>
+    </div>
+
+    <div class="columns" style="width: 100%; padding-top: 5px;">
+
+        <div class="scrpitingMaterialSection " id="scriptingMaterialSection">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                Upload your script material:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="file" id="scriptingMaterial" name="scriptingMaterial" style="width: 250px;"
+                       accept=".txt,.doc,.jpg ,.docx" title="Upload your script" value="@Model.ScriptingDigitalFileName"/>
+
+                <label>Uploaded Scripting File : @Model.ScriptingDigitalFileName</label>
+            </div>
+
+
+        </div>
+
+        <div class="productionMaterialSection " id="productionMaterialSection">
+            <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+                Upload your production material:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="file" id="productionMaterial" name="productionMaterial" style="width: 250px;"
+                       accept=".mp3,.mp4" title="Upload your video" value="@Model.ProductionDigitalFileName"/>
+
+                <label>Uploaded Scripting File : @Model.ProductionDigitalFileName</label>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="columns" style="width: 100%; padding-top: 5px;">
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Do you have APCON Approval:
+        </div>
+        <div class="data column" style="overflow: hidden;">
+
+
+            @Html.DropDownList("ApconApprovalTypeId", Model.APCONTypeList, new {style = "width:204px;height:20px;",})
+        </div>
+
+        <div class="ApconApprovalPriceSection hide" id="ApconApprovalPriceSection" style="padding-top: 5px;">
+            <div class="label column" style="width: 80px; text-align: right; padding-right: 5px;">
+                APCON Type Price:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="text" id="ApconPrice" readonly name="ApconApprovalAmount" style="width: 250px;" value="@Model.ApconApprovalAmount"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns ApconApprovalNumberSection hide" style="width: 100%; padding-top: 5px;" id="ApconApprovalNumberSection">
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Enter your Apcon Number ?:
+        </div>
+        <div style="padding-top: 5px;">
+            <input type="text" name="ApconApprovalNumber" id="ApconApprovalNumber" style="width: 204px;" maxlength="100" value="@Model.ApconApprovalNumber" class=""/>
+        </div>
+    </div>
+
+
+    <div class="columns" style="width: 100%; padding-top: 5px;" id="material">
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Type Of Material:
+        </div>
+        <div class="data column" style="overflow: hidden;">
+            @Html.DropDownList("MaterialTypeId", Model.MaterialList, new {style = "width:204px;height:20px;", id = "MaterialTypeId"})
+        </div>
+
+        <div class="scriptingPriceSection" id="scriptingPriceSection" style="padding-top: 5px;">
+            <div class="label column" style="width: 80px; text-align: right; padding-right: 5px;">
+                Scripting Price:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="text" id="selectedMaterialScriptPrice" readonly name="ScriptingAmount" style="width: 250px;" value="@Model.ScriptingAmount"/>
+            </div>
+        </div>
+
+        <div class="productionPriceSection" id="productionPriceSection" style="padding-top: 5px;">
+            <div class="label column" style="width: 80px; text-align: right; padding-right: 5px;">
+                Production Price:
+            </div>
+            <div class="data column" style="overflow: hidden;">
+                <input type="text" id="selectedMaterialProductionPrice" readonly name="ProductionAmount" style="width: 250px;" value="@Model.ProductionAmount"/>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="columns" style="width: 100%; padding-top: 5px;">
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Enter addition airing instructions:
+        </div>
+        <div class="data column" style="overflow: hidden;">
+            <input id="AiringDescription" name="AiringInstruction" style="width: 204px;" type="text" maxlength="100" value="@Model.AiringInstruction"/>
+        </div>
+    </div>
+
+    <div class="columns" style="width: 100%; padding-top: 5px;" hidden>
+        <div class="label column" style="width: 175px; text-align: right; padding-right: 5px;">
+            <span class="required">*</span>Duration of Advert:
+        </div>
+        <div class="data column" style="overflow: hidden;">
+            @Html.DropDownList("DurationCode", Model.AdvertDurationList, new {style = "width:204px;height:20px;", id = "DurationCode"})
+        </div>
+    </div>
+
+
+    <!-- Television Station Selection View Here -->
+
+
+    <label class="control-label" for="field1">WHICH STATIONS WILL YOU WANT YOUR MATERIALS AIRED ON</label>
+
+    <div class="form-group">
+
+        <div class="row" id="field1">
+            <div class="col-4 input">
+
+                @Html.DropDownList("TvStationId[]", Model.TvStationList, new {@class = "form-control", id = "TvStationListId"})
+
+            </div>
+            <div class="col-4">
+                @Html.DropDownList("Timing[]", Model.TimingList, new {@class = "form-control", id = "TimingId"})
+
+            </div>
+
+            <div class="col-3">
+                @Html.DropDownList("DurationType[]", Model.AdvertDurationList, new {@class = "form-control", id = "DurationTypeCode"})
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- The option field template containing an option field and a Remove button -->
+    <div class="form-group hide" id="optionTemplate">
+
+        <div class="row" id="field1">
+            <div class="col-4 input">
+
+                @Html.DropDownList("TvStationId[]", Model.TvStationList, new {@class = "form-control", id = "TvStationListId"})
+
+            </div>
+            <div class="col-4">
+                @Html.DropDownList("Timing[]", Model.TimingList, new {@class = "form-control", id = "TimingId"})
+
+            </div>
+
+            <div class="col-3">
+                @Html.DropDownList("DurationType[]", Model.AdvertDurationList, new {@class = "form-control", id = "DurationTypeCode"})
+
+            </div>
+
+            <div class="col-1">
+                <button type="button" class="btn btn-danger removeButton">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary addButton"><i class="fa fa-plus"></i> Add More Channels</button>
+
+        </div>
+    </div>
+
+
+    <h3 id="finalAmount">
+        Final Amount :
+    </h3>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input href="Order/Summary" value="Buy Now" class="enabledButton" style="width: 125px; text-align: center;"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add to Cart" class="enabledButton" style="width: 125px;"/>
+        </div>
+    </div>
+
+    </div>
+}
+
+
+@section JavaScriptsExecution
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#ApconApprovalTypeId").change(function() {
+                //var arrSet = $(this).find('option:selected').text().split(":");
+                $("#SelectedAbconAprovalPrice").val($(this).find('option:selected').text().split(":")[1]);
+                $("#SelectedAbconAprovalPrice").prop("readonly", true);
+
+            });
+        });
+    </script>
+
+
+}
+
+
+@section JavaScriptsIncludes
+{
+    <script src="/Scripts/jquery-ui-1.12.1.js" type="text/javascript"></script>
+
+    <!--Fading in and Out of View Elements as Required-->
+
+
+    <script>
+
+        $(document).ready(function() {
+
+
+            //Generate Total Price From Other Prices
+            function generateTotalPrice() {
+
+
+                var totalamount = parseInt($("#ApconPrice").val()) +
+                    parseInt($("#selectedMaterialScriptPrice").val()) +
+                    parseInt($("#selectedMaterialProductionPrice").val());
+
+                $("#finalAmount").html("Total Amount: " + (totalamount));
+            }
+
+            generateTotalPrice();
+            showApconPrice();
+            // showUploadFields();
+
+            var ApconPrice = 0;
+            var productionPrice = 0;
+            var scriptingPrice = 0;
+            var totalamount = 0;
+
+            $("#MaterialId").change(function() {
+
+                showUploadFields();
+
+
+            });
+
+
+            $("#ApconApprovalTypeId").change(function() {
+
+                showApconPrice();
+
+            });
+
+
+            $("#ApconApprovalTypeId").change(function() {
+
+                var Id = $(this).val();
+
+                if (Id >= 1) {
+                    $.ajax({
+                        "type": "Get",
+                        "url": "/Print/ApconApprovalPriceRadio?Id=" + Id,
+                        success: (function(data) {
+                            $("#ApconPrice").val(data.split(":")[0]);
+                            $("#selectedApconTypePriceId").val(parseInt(data.split(":")[1]));
+                            generateTotalPrice();
+                        })
+                    });
+                }
+
+                $("#ApconPrice").val("");
+                $("#ApconTypePriceId").val("");
+
+            });
+
+
+            $("#MaterialTypeId").change(function() {
+
+
+                var Id = $(this).val();
+
+                if (Id >= 1) {
+
+                    $.ajax({
+                        "type": "Get",
+                        "url": "/Tv/TvMaterialScriptPrice?Id=" + Id,
+                        success: (function(data) {
+                            $("#selectedMaterialScriptPrice").val(data.split(":")[0]);
+                            $("#selectedScriptingTypeId").val(parseInt(data.split(":")[1]));
+                            generateTotalPrice();
+                        })
+                    });
+
+
+                    $.ajax({
+                        "type": "Get",
+                        "url": "/Tv/TvMaterialProductionPrice?Id=" + Id,
+                        success: (function(data) {
+                            $("#selectedMaterialProductionPrice").val(data.split(":")[0]);
+                            $("#selectedMaterialProductionTypeId").val(parseInt(data.split(":")[1]));
+                            generateTotalPrice();
+                        })
+                    });
+                }
+
+                $("#selectedMaterialScriptPrice").val("");
+                $("#MaterialScriptingTypeId").val("");
+                $("#selectedMaterialProductionPrice").val("");
+                $("#MaterialProductionTypeId").val("");
+            });
+
+
+            $("#FinalAmount").val("#finalAmount");
+
+
+            function showApconPrice() {
+                if ($("#ApconApprovalTypeId").val() <= "1") {
+                    $("#ApconApprovalPriceSection").addClass("hide");
+                    $("#ApconPrice").val("");
+                    $('#ApconApprovalNumberSection').removeClass("hide");
+
+
+                } else {
+                    $("#ApconApprovalPriceSection").removeClass("hide");
+                    $('#ApconApprovalNumberSection').addClass("hide");
+                    $("#ApconApprovalNumber").val("");
+                }
+
+            }
+
+
+            function showUploadFields() {
+                if ($("#MaterialId").val() == "0") {
+                    $("#scriptingMaterialSection").addClass("hide");
+                    $("#scriptingMaterial").val("");
+                    $("#productionMaterialSection").addClass("hide");
+                    $("#productionMaterial").val("");
+                }
+
+                if ($("#MaterialId").val() == "1") {
+                    $("#scriptingMaterialSection").addClass("hide");
+                    $("#scriptingMaterial").val("");
+                    $("#productionMaterialSection").addClass("hide");
+                    $("#productionMaterial").val("");
+                }
+
+                if ($("#MaterialId").val() == "2") {
+                    $("#scriptingMaterialSection").removeClass("hide");
+                    $("#productionMaterialSection").addClass("hide");
+                    $("#productionMaterial").val("");
+                }
+
+                if ($("#MaterialId").val() == "3") {
+                    $("#scriptingMaterialSection").removeClass("hide");
+                    $("#productionMaterialSection").removeClass("hide");
+                }
+
+            }
+
+
+        })
+
+    </script>
+
+
+    <!--   Add More Form View -->
+
+    <script>
+        $(document).ready(function() {
+            // The maximum number of options
+            var MAX_OPTIONS = 5;
+
+            $('#editForm')
+
+
+                // Add button click handler
+                .on('click',
+                    '.addButton',
+                    function() {
+                        var $template = $('#optionTemplate'),
+                            $clone = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .insertBefore($template),
+                            $option = $clone.find('[name="TvStationId[]"]');
+
+                        // Add new field
+                        //   $('#surveyForm').bootstrapValidator('addField', $option);
+                    })
+
+                // Remove button click handler
+                .on('click',
+                    '.removeButton',
+                    function() {
+                        var $row = $(this).parents('.form-group'),
+                            $option = $row.find('[name="TvStationId[]"]');
+
+                        // Remove element containing the option
+                        $row.remove();
+
+                        // Remove field
+                        // $('#surveyForm').bootstrapValidator('removeField', $option);
+                    })
+
+                // Called after adding new field
+                .on('added.field.bv',
+                    function(e, data) {
+                        // data.field   --> The field name
+                        // data.element --> The new field element
+                        // data.options --> The new field options
+
+                        if (data.field === 'station[]') {
+                            if ($('#editForm').find(':visible[name="TvStationId[]"]').length >= MAX_OPTIONS) {
+                                $('#editForm').find('.addButton').attr('disabled', 'disabled');
+                            }
+                        }
+                    })
+
+                // Called after removing the field
+                .on('removed.field.bv',
+                    function(e, data) {
+                        if (data.field === 'station[]') {
+                            if ($('#editForm').find(':visible[name="TvStationId[]"]').length < MAX_OPTIONS) {
+                                $('#editForm').find('.addButton').removeAttr('disabled');
+                            }
+                        }
+                    });
+
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        function format_price(amount) {
+            var dollar = Number(amount).toLocaleString("us", "currency");
+            //decimals
+            var arrAmount = dollar.split(".");
+            if (arrAmount.length == 2) {
+                var decimal = arrAmount[1];
+                if (decimal.length == 1) {
+                    arrAmount[1] += "0";
+                }
+            }
+            if (arrAmount.length == 1) {
+                arrAmount.push("00");
+            }
+
+            return "N " + arrAmount.join(".");
+        }
+
+
+    </script>
+
+}
